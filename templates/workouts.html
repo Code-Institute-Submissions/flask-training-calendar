@@ -1,8 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
     {% for workout in workouts %}
-        <h1>{{workout.type}}</h1>
-        <p>Target Date: {{workout.target_date}}</p>
-        <p>{{workout.description}}</p>
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#"></a>
+                    <small class="text-muted">{{workout.target_date}}</small>
+                </div>
+                <h2><a class="article-title" href="#">{{workout.type}}</a></h2>
+                <p class="article-content">{{workout.description}}</p>
+            </div>
+        </article>
     {% endfor %}
 {% endblock content %}
