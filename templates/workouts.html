@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for workout in workouts %}
+        <h1>{{workout.type}}</h1>
+        <p>Target Date: {{workout.target_date}}</p>
+        <p>{{workout.description}}</p>
+    {% endfor %}
+{% endblock content %}
