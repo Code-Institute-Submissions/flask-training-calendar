@@ -1,16 +1,7 @@
 from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
-from flask_sqlalchemy import SQLAlchemy
-from flask_s3 import FlaskS3
-import os
-
-
-app = Flask(__name__)
-app.config['SECRET_KEY']=os.environ.get('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
-app.config['FLASKS3_BUCKET_NAME'] = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-s3 = FlaskS3(app)
+from flasktrainingcalendar import app
+from flasktrainingcalendar.models import User, Workout
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm
 
 workouts = [
     {
@@ -58,6 +49,3 @@ def login():
         else:
             flash('Login Unsuccessful. Please check your login details', 'danger')
     return render_template("login.html", title="login", form=form)
-    
-if __name__ == '__main__':
-    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', 8080)), debug=True)
