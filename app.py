@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_s3 import FlaskS3
 import os
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY']=os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -13,21 +14,22 @@ s3 = FlaskS3(app)
 
 workouts = [
     {
-        'type': '5k Run',
+        'workout_type': '5k Run',
         'description': '5k Run',
         'target_date': 'July 06, 2018'
     },
     {
-        'type': '3k Workout Run',
+        'workout_type': '3k Workout Run',
         'description': '3k Tempo Run',
         'target_date': 'July 08, 2018'
     },
     {
-        'type': '10K Long Run',
+        'workout_type': '10K Long Run',
         'description': '10K Long slow run',
         'target_date': 'July 10, 2018'
     }
 ]
+
 
 
 @app.route('/')
