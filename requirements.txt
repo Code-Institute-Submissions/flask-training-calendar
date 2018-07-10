@@ -1,9 +1,11 @@
 Flask==1.0.2
 Flask-S3==0.3.3
 Flask-SQLAlchemy==2.3.2
+Flask-WTF==0.14.2
 Jinja2==2.10
 MarkupSafe==1.0
 SQLAlchemy==1.2.9
+WTForms==2.2.1
 Werkzeug==0.14.1
 boto3==1.7.51
 botocore==1.10.51
