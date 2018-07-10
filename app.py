@@ -31,7 +31,7 @@ workouts = [
 
 
 @app.route('/')
-def hello():
+def home():
     return render_template("home.html")
     
 @app.route('/workouts')
@@ -43,12 +43,18 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash("Your account has been successfully created, please login", "success")
-        return redirect(url_for("hello"))
+        return redirect(url_for("home"))
     return render_template("register.html", title="register", form=form)
     
-@app.route('/login')
+@app.route('/login', methods=["POST", "GET"])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        if (form.username_or_email.data == 'admin@example.com' or form.username_or_email.data == 'admin') and form.password.data == "password":
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Login Unsuccessful. Please check your login details', 'danger')
     return render_template("login.html", title="login", form=form)
     
 if __name__ == '__main__':
