@@ -102,3 +102,9 @@ def new_workout():
         flash('Your Workout has been added', 'success')
         return redirect(url_for('get_workouts'))
     return render_template('new_workout.html', title='New Workout', form=form)
+    
+
+@app.route("/workout/<int:workout_id>")
+def workout(workout_id):
+    workout=Workout.query.get_or_404(workout_id)
+    return render_template("workout.html", title=workout.workout_type, workout=workout)
