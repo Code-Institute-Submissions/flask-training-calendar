@@ -1,4 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Running Calendar</h1>
+    {% if workout.target_date == date %}
+    <h1>Todays workout:</h1>
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#"></a>
+                <small class="text-muted">{{workout.target_date}}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_type}}</a></h2>
+            <p class="article-content">{{workout.description}}</p>
+        </div>
+    </article>
+    {% else %}
+    <h1>No Workout Today</h1>
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#"></a>
+                <small class="text-muted">{{date}}</small>
+            </div>
+            <h2>Go Eat That Buritto!</h2>
+        </div>
+    </article>
+    {% endif %}
 {% endblock content %}

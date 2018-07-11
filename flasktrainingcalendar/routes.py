@@ -7,11 +7,14 @@ from flasktrainingcalendar import app, db, bcrypt
 from flasktrainingcalendar.models import User, Workout
 from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import date
 
 
 @app.route('/')
 def home():
-    return render_template("home.html")
+    workout = Workout.query.order_by(Workout.target_date).first()
+    current_date = date.today()
+    return render_template("home.html", workout=workout, date=current_date)
     
 @app.route('/workouts')
 def get_workouts():
