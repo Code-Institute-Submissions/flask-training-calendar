@@ -1,7 +1,11 @@
+import os
+import random
+import string
+import boto3
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flasktrainingcalendar import app, db, bcrypt
 from flasktrainingcalendar.models import User, Workout
-from flasktrainingcalendar.forms import RegistrationForm, LoginForm
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 workouts = [
@@ -76,8 +80,31 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
     
-@app.route("/account")
+
+
+def save_picture(form_picture):          
+    random_hex = ''.join([random.choice(string.digits) for n in range(8)])    
+    _, f_ext = os.path.splitext(form_picture.filename)  
+    picture_fn = random_hex + f_ext
+    s3 = boto3.resource('s3')
+    s3.Bucket('mpark-flask-training-calendar').put_object(Key="static/profile_pics/" + picture_fn, Body=form_picture)
+    return picture_fn   
+    
+
+@app.route("/account", methods=["POST", "GET"])
 @login_required
 def account():
-    image_file=url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='account', image_file=image_file)
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash("Your account has been successfully updated", "success")
+        return redirect(url_for('account'))
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    return render_template('account.html', title='account', form=form)
