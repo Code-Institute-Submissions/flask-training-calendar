@@ -5,7 +5,7 @@ import boto3
 from flask import Flask, render_template, url_for, flash, redirect, request
 from flasktrainingcalendar import app, db, bcrypt
 from flasktrainingcalendar.models import User, Workout
-from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 workouts = [
@@ -108,3 +108,9 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     return render_template('account.html', title='account', form=form)
+    
+@app.route("/workout/new", methods=["POST", "GET"])
+@login_required
+def new_workout():
+    form = NewWorkoutForm()
+    return render_template('new_workout.html', title='New Workout', form=form)

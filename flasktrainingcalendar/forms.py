@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flasktrainingcalendar.models import User
 
@@ -45,3 +46,9 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
+                
+class NewWorkoutForm(FlaskForm):
+    workout_type=StringField('Workout Type', validators=[DataRequired()])
+    target_date=DateField('Target Date', format='%Y-%m-%d', validators=[(DataRequired)])
+    description=TextAreaField('Description')
+    submit=SubmitField('Add Workout')

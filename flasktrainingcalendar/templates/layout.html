@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" type="text/css" />
@@ -33,6 +31,7 @@
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
                         {% if current_user.is_authenticated %}
+                            <a class="nav-item nav-link" href="{{url_for('new_workout')}}">Add A Workout</a>
                             <a class="nav-item nav-link" href="{{url_for('account')}}">Account</a>
                             <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
                         {% else %}
