@@ -2,7 +2,7 @@ import os
 import random
 import string
 import boto3
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, abort
 from flasktrainingcalendar import app, db, bcrypt
 from flasktrainingcalendar.models import User, Workout
 from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm
@@ -15,7 +15,7 @@ def home():
     
 @app.route('/workouts')
 def get_workouts():
-    workouts = Workout.query.all()
+    workouts = Workout.query.order_by(Workout.target_date)
     return render_template("workouts.html", workouts=workouts, title="workouts")
     
 @app.route('/register', methods=['POST', "GET"])
@@ -101,10 +101,41 @@ def new_workout():
         db.session.commit()
         flash('Your Workout has been added', 'success')
         return redirect(url_for('get_workouts'))
-    return render_template('new_workout.html', title='New Workout', form=form)
+    return render_template('new_workout.html', title='New Workout', form=form, legend='Add A Workout')
     
 
 @app.route("/workout/<int:workout_id>")
 def workout(workout_id):
     workout=Workout.query.get_or_404(workout_id)
     return render_template("workout.html", title=workout.workout_type, workout=workout)
+    
+@app.route("/workout/<int:workout_id>/update", methods=["GET", "POST"])
+@login_required
+def update_workout(workout_id):
+    workout = Workout.query.get_or_404(workout_id)
+    if workout.user_id != current_user.id:
+        abort(403)
+    form = NewWorkoutForm()
+    if form.validate_on_submit():
+        workout.workout_type = form.workout_type.data
+        workout.description = form.description.data
+        workout.target_date = form.target_date.data
+        db.session.commit()
+        flash("Your workout has been updated!", "success")
+        return redirect(url_for('workout', workout_id=workout.id))
+    elif request.method == "GET":
+        form.workout_type.data = workout.workout_type
+        form.description.data = workout.description
+        form.target_date.data = workout.target_date
+    return render_template('new_workout.html', title='Update Post', form=form, legend='Update Workout')
+    
+@app.route("/workout/<int:workout_id>/delete", methods=["POST"])
+@login_required
+def delete_workout(workout_id):
+    workout = Workout.query.get_or_404(workout_id)
+    if workout.user_id != current_user.id:
+        abort(403)
+    db.session.delete(workout)
+    db.session.commit()
+    flash("Your post has been deleted", "success")
+    return redirect(url_for('get_workouts'))
