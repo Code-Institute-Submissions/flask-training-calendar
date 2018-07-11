@@ -8,25 +8,6 @@ from flasktrainingcalendar.models import User, Workout
 from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 
-workouts = [
-    {
-        'workout_type': '5k Run',
-        'description': '5k Run',
-        'target_date': 'July 06, 2018'
-    },
-    {
-        'workout_type': '3k Workout Run',
-        'description': '3k Tempo Run',
-        'target_date': 'July 08, 2018'
-    },
-    {
-        'workout_type': '10K Long Run',
-        'description': '10K Long slow run',
-        'target_date': 'July 10, 2018'
-    }
-]
-
-
 
 @app.route('/')
 def home():
@@ -34,6 +15,7 @@ def home():
     
 @app.route('/workouts')
 def get_workouts():
+    workouts = Workout.query.all()
     return render_template("workouts.html", workouts=workouts, title="workouts")
     
 @app.route('/register', methods=['POST', "GET"])
@@ -113,4 +95,10 @@ def account():
 @login_required
 def new_workout():
     form = NewWorkoutForm()
+    if form.validate_on_submit():
+        workout = Workout(workout_type = form.workout_type.data, target_date = form.target_date.data, description = form.description.data, user_id=current_user.id)
+        db.session.add(workout)
+        db.session.commit()
+        flash('Your Workout has been added', 'success')
+        return redirect(url_for('get_workouts'))
     return render_template('new_workout.html', title='New Workout', form=form)

@@ -4,6 +4,8 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms_components import DateRange
+from datetime import date
 from flasktrainingcalendar.models import User
 
 class RegistrationForm(FlaskForm):
@@ -49,6 +51,6 @@ class UpdateAccountForm(FlaskForm):
                 
 class NewWorkoutForm(FlaskForm):
     workout_type=StringField('Workout Type', validators=[DataRequired()])
-    target_date=DateField('Target Date', format='%Y-%m-%d', validators=[(DataRequired)])
+    target_date=DateField('Target Date', format='%Y-%m-%d', validators=[DataRequired(), DateRange(min=(date.today()))])
     description=TextAreaField('Description')
     submit=SubmitField('Add Workout')
