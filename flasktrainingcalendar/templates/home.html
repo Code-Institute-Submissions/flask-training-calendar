@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     {% if current_user.is_authenticated %}
-        {% if workout.target_date == date %}
+        {% if workout.target_date == date and workout.completed == False %}
         <h1>Todays workout:</h1>
         <article class="media content-section">
             <div class="media-body">

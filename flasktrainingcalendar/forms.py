@@ -56,3 +56,6 @@ class NewWorkoutForm(FlaskForm):
     target_date=DateField('Target Date', format='%Y-%m-%d', validators=[DataRequired(), DateRange(min=(date.today()))])
     description=TextAreaField('Description')
     submit=SubmitField('Add Workout')
+    
+class CompletedWorkoutForm(FlaskForm):
+    submit=SubmitField('Completed')

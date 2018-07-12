@@ -12,6 +12,14 @@
                 <div>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{url_for('update_workout', workout_id=workout.id)}}">Update</a>
                     <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    {% if workout.completed == False%}
+                    <form method="POST" action="">
+                        {{completed_form.hidden_tag()}}
+                        <div class="form-group">
+                            {{ completed_form.submit(class='btn btn-outline-info') }}
+                        </div>
+                    {% endif %}
+                    </form>
                 </div>
             {% endif %}
         </div>

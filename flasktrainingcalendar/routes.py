@@ -5,7 +5,7 @@ import boto3
 from flask import Flask, render_template, url_for, flash, redirect, request, abort
 from flasktrainingcalendar import app, db, bcrypt
 from flasktrainingcalendar.models import User, Workout
-from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date
 
@@ -20,8 +20,13 @@ def home():
 
 @app.route('/workouts')
 def get_workouts():
-    workouts = Workout.query.filter_by(user_id = current_user.id).order_by(Workout.target_date)
+    workouts = Workout.query.filter_by(user_id = current_user.id, completed=False).order_by(Workout.target_date)
     return render_template("workouts.html", workouts=workouts, title="workouts")
+    
+@app.route('/workouts/completed')
+def get_completed_workouts():
+    workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date)
+    return render_template("workouts.html", workouts=workouts, title=" completed workouts")
     
 @app.route('/register', methods=['POST', "GET"])
 def register():
@@ -109,12 +114,17 @@ def new_workout():
     return render_template('new_workout.html', title='New Workout', form=form, legend='Add A Workout')
     
 
-@app.route("/workout/<int:workout_id>")
+@app.route("/workout/<int:workout_id>", methods=["POST", "GET"])
 def workout(workout_id):
     workout=Workout.query.get_or_404(workout_id)
     if workout.user_id != current_user.id:
         return redirect(url_for('get_workouts'))
-    return render_template("workout.html", title=workout.workout_type, workout=workout)
+    completed_form = CompletedWorkoutForm()
+    if completed_form.validate_on_submit():
+        workout.completed = True
+        db.session.commit()
+        return redirect(url_for('get_workouts'))
+    return render_template("workout.html", title=workout.workout_type, workout=workout, completed_form=completed_form)
     
 @app.route("/workout/<int:workout_id>/update", methods=["GET", "POST"])
 @login_required
@@ -125,6 +135,8 @@ def update_workout(workout_id):
     form = NewWorkoutForm()
     if form.validate_on_submit():
         workout.workout_type = form.workout_type.data
+        workout.workout_distance = form.workout_distance.data
+        workout.distance_unit = form.distance_unit.data
         workout.description = form.description.data
         workout.target_date = form.target_date.data
         db.session.commit()
@@ -132,6 +144,8 @@ def update_workout(workout_id):
         return redirect(url_for('workout', workout_id=workout.id))
     elif request.method == "GET":
         form.workout_type.data = workout.workout_type
+        form.workout_distance.data = workout.workout_distance
+        form.distance_unit.data = workout.distance_unit
         form.description.data = workout.description
         form.target_date.data = workout.target_date
     return render_template('new_workout.html', title='Update Post', form=form, legend='Update Workout')

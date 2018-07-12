@@ -25,6 +25,7 @@ class Workout(db.Model):
     distance_unit = db.Column(db.String(100), nullable=False)
     target_date = db.Column(db.Date, nullable=False)
     description = db.Column(db.Text)
+    completed = db.Column(db.Boolean, default=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     def __repr__(self):
