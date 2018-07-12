@@ -21,6 +21,8 @@ class User(db.Model, UserMixin):
 class Workout(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     workout_type = db.Column(db.String(100), nullable=False)
+    workout_distance = db.Column(db.String(100), nullable=False)
+    distance_unit = db.Column(db.String(100), nullable=False)
     target_date = db.Column(db.Date, nullable=False)
     description = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

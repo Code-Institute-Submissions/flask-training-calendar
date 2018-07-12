@@ -99,7 +99,7 @@ def account():
 def new_workout():
     form = NewWorkoutForm()
     if form.validate_on_submit():
-        workout = Workout(workout_type = form.workout_type.data, target_date = form.target_date.data, description = form.description.data, user_id=current_user.id)
+        workout = Workout(workout_type = form.workout_type.data, workout_distance = form.workout_distance.data, distance_unit = form.distance_unit.data, target_date = form.target_date.data, description = form.description.data, user_id=current_user.id)
         db.session.add(workout)
         db.session.commit()
         flash('Your Workout has been added', 'success')

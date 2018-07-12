@@ -8,7 +8,7 @@
                 <a class="mr-2" href="#"></a>
                 <small class="text-muted">{{workout.target_date}}</small>
             </div>
-            <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_type}}</a></h2>
+            <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
             <p class="article-content">{{workout.description}}</p>
         </div>
     </article>

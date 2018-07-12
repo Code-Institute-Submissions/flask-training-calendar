@@ -5,6 +5,11 @@
             {{form.hidden_tag()}}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ legend }}</legend>
+                
+                
+                
+                
+                
                 <div class="form-group">
                     {{ form.workout_type.label(class='form-control-label') }}
                     {% if form.workout_type.errors %}
@@ -18,6 +23,40 @@
                         {{ form.workout_type(class='form-control form-control-lg') }}
                     {% endif %}
                 </div>
+                
+                
+                <div class="form-group">
+                    {{ form.workout_distance.label(class='form-control-label') }}
+                    {% if form.workout_distance.errors %}
+                        {{ form.workout_distance(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.workout_distance.errors%}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.workout_distance(class='form-control form-control-lg') }}
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    {{ form.distance_unit.label(class='form-control-label') }}
+                    {% if form.distance_unit.errors %}
+                        {{ form.distance_unit(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.distance_unit.errors%}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.distance_unit(class='form-control form-control-lg') }}
+                    {% endif %}
+                </div>
+                
+                
+                
+                
+                
                 <div class="form-group">
                     {{ form.target_date.label(class='form-control-label') }}
                     {% if form.target_date.errors %}
@@ -31,6 +70,9 @@
                         {{ form.target_date(class='form-control form-control-lg') }}
                     {% endif %}
                 </div>
+                
+                
+                
                 <div class="form-group">
                     {{ form.description.label(class='form-control-label') }}
                     {% if form.description.errors %}

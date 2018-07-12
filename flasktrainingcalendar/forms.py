@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField, IntegerField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms_components import DateRange
@@ -50,7 +50,9 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')
                 
 class NewWorkoutForm(FlaskForm):
-    workout_type=StringField('Workout Type', validators=[DataRequired()])
+    workout_type=SelectField('Workout Type', choices=[('run', 'run'), ('slow run', 'slow run'), ('tempo run', 'tempo run'), ('interval workout', 'interval workout'), ('fartlek', 'fartlek')],validators=[DataRequired()])
+    workout_distance=IntegerField('Workout Distance', validators=[DataRequired()])
+    distance_unit=SelectField('Unit Of Measurement', choices=[('K', 'kilometres'), (' mile', 'miles'), (' metre', 'metres')],validators=[DataRequired()])
     target_date=DateField('Target Date', format='%Y-%m-%d', validators=[DataRequired(), DateRange(min=(date.today()))])
     description=TextAreaField('Description')
     submit=SubmitField('Add Workout')
