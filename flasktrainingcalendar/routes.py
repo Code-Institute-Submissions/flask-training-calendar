@@ -12,13 +12,15 @@ from datetime import date
 
 @app.route('/')
 def home():
-    workout = Workout.query.order_by(Workout.target_date).first()
-    current_date = date.today()
-    return render_template("home.html", workout=workout, date=current_date)
-    
+    if current_user.is_authenticated:
+        workout = Workout.query.filter_by(user_id = current_user.id).order_by(Workout.target_date).first()
+        current_date = date.today()
+        return render_template("home.html", workout=workout, date=current_date)
+    return render_template("home.html")
+
 @app.route('/workouts')
 def get_workouts():
-    workouts = Workout.query.order_by(Workout.target_date)
+    workouts = Workout.query.filter_by(user_id = current_user.id).order_by(Workout.target_date)
     return render_template("workouts.html", workouts=workouts, title="workouts")
     
 @app.route('/register', methods=['POST', "GET"])
@@ -110,6 +112,8 @@ def new_workout():
 @app.route("/workout/<int:workout_id>")
 def workout(workout_id):
     workout=Workout.query.get_or_404(workout_id)
+    if workout.user_id != current_user.id:
+        return redirect(url_for('get_workouts'))
     return render_template("workout.html", title=workout.workout_type, workout=workout)
     
 @app.route("/workout/<int:workout_id>/update", methods=["GET", "POST"])
