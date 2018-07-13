@@ -30,3 +30,11 @@ class Workout(db.Model):
     
     def __repr__(self):
         return '<Workout %r>' % self.workout_type
+        
+class Photo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    image_file = db.Column(db.String(20))
+    workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'), nullable=False)
+    
+    def __repr__(self):
+        return '<Photo id: {0}, image_file: {1}, workout_id: {2}>'.format(self.id, self.image_file, self.workout_id)

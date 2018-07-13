@@ -59,3 +59,7 @@ class NewWorkoutForm(FlaskForm):
     
 class CompletedWorkoutForm(FlaskForm):
     submit=SubmitField('Completed')
+    
+class WorkoutPhotoForm(FlaskForm):
+    picture = FileField('Upload A Workout Photo', validators=[FileAllowed(['jpg', 'png'])])
+    upload = SubmitField('Upload')

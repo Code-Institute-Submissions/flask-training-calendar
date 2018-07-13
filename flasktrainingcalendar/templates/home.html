@@ -1,31 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
     {% if current_user.is_authenticated %}
-        {% if workout.target_date == date and workout.completed == False %}
-        <h1>Todays workout:</h1>
-        <article class="media content-section">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="#"></a>
-                    <small class="text-muted">{{workout.target_date}}</small>
+        {% if workouts %}
+            <h1>Todays workouts:</h1>
+            {% for workout in workouts %}
+                <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="#"></a>
+                        <small class="text-muted">{{workout.target_date}}</small>
+                    </div>
+                    <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
+                    <p class="article-content">{{workout.description}}</p>
                 </div>
-                <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
-                <p class="article-content">{{workout.description}}</p>
-            </div>
-        </article>
+            </article>
+            {% endfor %}
         {% else %}
-        <h1>No Workout Today</h1>
-        <article class="media content-section">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="#"></a>
-                    <small class="text-muted">{{date}}</small>
+            <h1>No Workout Today</h1>
+            <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="#"></a>
+                        <small class="text-muted">{{date}}</small>
+                    </div>
+                    <h2>Go Eat That Buritto!</h2>
                 </div>
-                <h2>Go Eat That Buritto!</h2>
-            </div>
-        </article>
+            </article>
         {% endif %}
-    {% else %}
-        <h1>Hi There!</h1>
+        {% else %}
+            <h1>Hi There!</h1>
     {% endif %}
 {% endblock content %}

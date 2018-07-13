@@ -18,12 +18,32 @@
                         <div class="form-group">
                             {{ completed_form.submit(class='btn btn-outline-info') }}
                         </div>
-                    {% endif %}
                     </form>
+                    {% else %}
+                    <form method="POST" action="", enctype="multipart/form-data">
+                        {{photo_form.hidden_tag()}}
+                        <div class="form-group">
+                            {{ photo_form.picture.label() }}
+                            {{ photo_form.picture(class="form-control-file") }}
+                            {% if photo_form.picture.errors %}
+                                {% for error in photo_form.picture.errors%}
+                                    <span class='text-danger'>{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ photo_form.upload(class='btn btn-outline-info') }}
+                        </div>
+                    </form>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>
     </article>
+    
+    {% for photo in photos %}
+        <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200" class="img-thumbnail"></img>
+    {% endfor %}
     
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

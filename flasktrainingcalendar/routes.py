@@ -4,8 +4,8 @@ import string
 import boto3
 from flask import Flask, render_template, url_for, flash, redirect, request, abort
 from flasktrainingcalendar import app, db, bcrypt
-from flasktrainingcalendar.models import User, Workout
-from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm
+from flasktrainingcalendar.models import User, Workout, Photo
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm, WorkoutPhotoForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date
 
@@ -13,9 +13,8 @@ from datetime import date
 @app.route('/')
 def home():
     if current_user.is_authenticated:
-        workout = Workout.query.filter_by(user_id = current_user.id).order_by(Workout.target_date).first()
-        current_date = date.today()
-        return render_template("home.html", workout=workout, date=current_date)
+        workouts = Workout.query.filter_by(user_id = current_user.id, target_date=date.today(), completed=False).all()
+        return render_template("home.html", workouts=workouts)
     return render_template("home.html")
 
 @app.route('/workouts')
@@ -74,13 +73,15 @@ def logout():
     
 
 
-def save_picture(form_picture):          
+def save_profile_picture(form_picture):          
     random_hex = ''.join([random.choice(string.digits) for n in range(8)])    
     _, f_ext = os.path.splitext(form_picture.filename)  
     picture_fn = random_hex + f_ext
     s3 = boto3.resource('s3')
     s3.Bucket('mpark-flask-training-calendar').put_object(Key="static/profile_pics/" + picture_fn, Body=form_picture)
-    return picture_fn   
+    return picture_fn 
+    
+
     
 
 @app.route("/account", methods=["POST", "GET"])
@@ -89,7 +90,7 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_picture(form.picture.data)
+            picture_file = save_profile_picture(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -114,17 +115,35 @@ def new_workout():
     return render_template('new_workout.html', title='New Workout', form=form, legend='Add A Workout')
     
 
+
+def save_workout_picture(form_picture):          
+    random_hex = ''.join([random.choice(string.digits) for n in range(8)])    
+    _, f_ext = os.path.splitext(form_picture.filename)  
+    picture_fn = random_hex + f_ext
+    s3 = boto3.resource('s3')
+    s3.Bucket('mpark-flask-training-calendar').put_object(Key="static/workout_pics/" + picture_fn, Body=form_picture)
+    return picture_fn 
+
+
 @app.route("/workout/<int:workout_id>", methods=["POST", "GET"])
 def workout(workout_id):
     workout=Workout.query.get_or_404(workout_id)
+    photos = Photo.query.filter_by(workout_id=workout.id).all()
     if workout.user_id != current_user.id:
         return redirect(url_for('get_workouts'))
     completed_form = CompletedWorkoutForm()
-    if completed_form.validate_on_submit():
+    if completed_form.submit.data and completed_form.validate_on_submit():
         workout.completed = True
         db.session.commit()
         return redirect(url_for('get_workouts'))
-    return render_template("workout.html", title=workout.workout_type, workout=workout, completed_form=completed_form)
+    photo_form = WorkoutPhotoForm()
+    if photo_form.upload.data and photo_form.validate_on_submit():
+        picture_file = save_workout_picture(photo_form.picture.data)
+        photo = Photo(image_file=picture_file, workout_id=workout.id)
+        db.session.add(photo)
+        db.session.commit()
+        return redirect(url_for("workout", workout_id=workout.id))
+    return render_template("workout.html", title=workout.workout_type, workout=workout, photos=photos, completed_form=completed_form, photo_form=photo_form)
     
 @app.route("/workout/<int:workout_id>/update", methods=["GET", "POST"])
 @login_required
