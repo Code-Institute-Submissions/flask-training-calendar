@@ -63,3 +63,19 @@ class CompletedWorkoutForm(FlaskForm):
 class WorkoutPhotoForm(FlaskForm):
     picture = FileField('Upload A Workout Photo', validators=[FileAllowed(['jpg', 'png'])])
     upload = SubmitField('Upload')
+    
+class RequestResetForm(FlaskForm):
+    username_or_email = StringField('Username or Email', validators=[DataRequired()])
+    submit=SubmitField('Request Password Reset')
+    
+    def validate_user(self, email):
+        user = User.query.filter_by(email=username_or_email.data).first()
+        if user is None:
+            user = User.query.filter_by(username=username_or_email.data).first()
+            if user is None:
+                raise ValidationError('That account does not exist. You must register first.')
+            
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=5, max=20)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit=SubmitField('Request Password')
