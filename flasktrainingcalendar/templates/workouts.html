@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="row">
-        {% for workout in workouts %}
+        {% for workout in workouts.items %}
             <div class="col-md-4 col-sm-12">
                <article class="media content-section calendar-cell">
                     <div class="media-body">
@@ -15,5 +15,16 @@
             </div>
         {% endfor %}
     </div>
+    {% for page_num in workouts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if workouts.page == page_num %}
+                <a class="btn btn-light mb-4" href="{{ url_for('get_workouts', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-light mb-4" href="{{ url_for('get_workouts', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
     
 {% endblock content %}

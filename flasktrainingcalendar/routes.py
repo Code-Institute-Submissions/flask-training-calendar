@@ -19,12 +19,14 @@ def home():
 
 @app.route('/workouts')
 def get_workouts():
-    workouts = Workout.query.filter_by(user_id = current_user.id, completed=False).order_by(Workout.target_date)
+    page = request.args.get('page', 1, type=int)
+    workouts = Workout.query.filter_by(user_id = current_user.id, completed=False).order_by(Workout.target_date).paginate(page=page, per_page=9)
     return render_template("workouts.html", workouts=workouts, title="workouts")
     
 @app.route('/workouts/completed')
 def get_completed_workouts():
-    workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date)
+    page = request.args.get('page', 1, type=int)
+    workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date).paginate(page=page, per_page=9)
     return render_template("workouts.html", workouts=workouts, title="completed workouts")
     
 @app.route('/register', methods=['POST', "GET"])
