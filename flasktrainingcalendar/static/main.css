@@ -1,5 +1,6 @@
 body {
-  background: #ffffff;
+  background-image: url("images/endurance-exercise-female-40751.jpg");
+  background-size: cover;
   color: #333333;
   margin-top: 5rem;
 }
@@ -8,8 +9,12 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
+h2{
+  font-size: 1.8em;
+}
+
 .bg-steel {
-  background-color: #5f788a;
+  background-color: #280501;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -25,7 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #f0fcff;
+  background: rgba(255,255,255,0.2);
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
@@ -77,4 +82,25 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.navbar-dark .navbar-brand {
+    color: #fff;
+    font-family: 'Merienda', cursive;
+}
+
+.nav-item-border {
+  border-right: 1px solid #ffffff;
+}
+
+.calendar-cell {
+  height: 160px;
+}
+
+.title-page {
+  margin: 0 auto;
+}
+
+.center-align {
+  text-align: center;
 }

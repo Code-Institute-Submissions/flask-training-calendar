@@ -2,32 +2,51 @@
 {% block content %}
     {% if current_user.is_authenticated %}
         {% if workouts %}
-            <h1>Todays workouts:</h1>
             {% for workout in workouts %}
                 <article class="media content-section">
-                <div class="media-body">
-                    <div class="article-metadata">
-                        <a class="mr-2" href="#"></a>
-                        <small class="text-muted">{{workout.target_date}}</small>
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <h1>Todays workouts:</h1>
+                        </div>
+                        <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
+                        <p class="article-content">{{workout.description}}</p>
                     </div>
-                    <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
-                    <p class="article-content">{{workout.description}}</p>
-                </div>
-            </article>
+                </article>
             {% endfor %}
         {% else %}
-            <h1>No Workout Today</h1>
             <article class="media content-section">
                 <div class="media-body">
                     <div class="article-metadata">
-                        <a class="mr-2" href="#"></a>
-                        <small class="text-muted">{{date}}</small>
+                        <h1>No Workout Today</h1>
                     </div>
                     <h2>Go Eat That Buritto!</h2>
                 </div>
             </article>
         {% endif %}
         {% else %}
-            <h1>Hi There!</h1>
+            <article class="media content-section">
+                <div class="media-body center-align">
+                    <h1>Welcome to Running Calendar</h1>
+                </div>
+            </article>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <article class="media content-section title-page">
+                        <div class="media-body">
+                            <a href="{{url_for('login')}}"><h2>Login to your account here</h2></a>
+                        </div>
+                    </article>
+                </div>
+                
+                <div class="col-md-6">
+                    <article class="media content-section title-page">
+                        <div class="media-body">
+                            <a href="{{url_for('register')}}"><h2>No account? Sign up here</h2></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            
     {% endif %}
 {% endblock content %}

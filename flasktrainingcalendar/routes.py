@@ -25,7 +25,7 @@ def get_workouts():
 @app.route('/workouts/completed')
 def get_completed_workouts():
     workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date)
-    return render_template("workouts.html", workouts=workouts, title=" completed workouts")
+    return render_template("workouts.html", workouts=workouts, title="completed workouts")
     
 @app.route('/register', methods=['POST', "GET"])
 def register():
