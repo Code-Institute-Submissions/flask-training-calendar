@@ -27,7 +27,7 @@ def get_workouts():
 def get_completed_workouts():
     page = request.args.get('page', 1, type=int)
     workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date).paginate(page=page, per_page=9)
-    return render_template("workouts.html", workouts=workouts, title="completed workouts")
+    return render_template("completed_workouts.html", workouts=workouts, title="completed workouts")
     
 @app.route('/register', methods=['POST', "GET"])
 def register():
@@ -137,7 +137,8 @@ def workout(workout_id):
     if completed_form.submit.data and completed_form.validate_on_submit():
         workout.completed = True
         db.session.commit()
-        return redirect(url_for('get_workouts'))
+        flash('You have marked this workout as completed', 'success')
+        return redirect(url_for('workout', workout_id=workout.id))
     photo_form = WorkoutPhotoForm()
     if photo_form.upload.data and photo_form.validate_on_submit():
         picture_file = save_workout_picture(photo_form.picture.data)
