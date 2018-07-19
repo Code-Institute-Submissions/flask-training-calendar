@@ -176,10 +176,14 @@ def update_workout(workout_id):
 @login_required
 def delete_workout(workout_id):
     workout = Workout.query.get_or_404(workout_id)
+    photos = Photo.query.filter_by(workout_id=workout.id).all()
     if workout.user_id != current_user.id:
         abort(403)
     db.session.delete(workout)
     db.session.commit()
+    for photo in photos:
+        db.session.delete(photo)
+        db.session.commit()
     flash("Your post has been deleted", "success")
     return redirect(url_for('get_workouts'))
 
