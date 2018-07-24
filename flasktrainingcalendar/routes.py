@@ -131,7 +131,7 @@ def save_workout_picture(form_picture):
 def workout(workout_id):
     workout=Workout.query.get_or_404(workout_id)
     photos = Photo.query.filter_by(workout_id=workout.id).all()
-    if workout.user_id != current_user.id:
+    if workout.user_id != current_user.id and not current_user.is_following(workout.author):
         return redirect(url_for('get_workouts'))
     completed_form = CompletedWorkoutForm()
     if completed_form.submit.data and completed_form.validate_on_submit():
@@ -234,14 +234,14 @@ def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         flash("No such user exists", "warning")
-        return redirect(url_for("home"))
+        return redirect(url_for("following"))
     if user == current_user:
         flash("You can not follow yourself", "warning")
-        return redirect(url_for("home"))
+        return redirect(url_for("following"))
     current_user.follow(user)
     db.session.commit()
     flash("You are now following {0}".format(username), "success")
-    return redirect(url_for("home"))
+    return redirect(url_for("view_user", username=user.username))
     
 @app.route('/unfollow/<username>')
 @login_required
@@ -249,19 +249,20 @@ def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         flash("No such user exists", "warning")
-        return redirect(url_for("home"))
+        return redirect(url_for("following"))
     if user == current_user:
         flash("You can not unfollow yourself", "warning")
-        return redirect(url_for("home"))
+        return redirect(url_for("following"))
     current_user.unfollow(user)
     db.session.commit()
     flash("You are no longer following {0}".format(username), "success")
-    return redirect(url_for("home"))
+    return redirect(url_for("following"))
     
 @app.route('/following')
 def following():
-    workouts = current_user.followed_workouts()
-    return render_template("following.html", workouts=workouts)
+    all_users = User.query.all()
+    users = [user for user in all_users if current_user.is_following(user)]
+    return render_template("following.html", users=users)
     
 @app.route('/user/<username>')
 @login_required
@@ -269,4 +270,19 @@ def view_user(username):
     user = User.query.filter_by(username=username).first()
     if user == current_user:
         return redirect(url_for("account"))
-    return render_template('user.html', user=user)
+    page = request.args.get('page', 1, type=int)
+    workouts = Workout.query.filter_by(user_id = user.id, completed=False).order_by(Workout.target_date).paginate(page=page, per_page=9) 
+    return render_template('user.html', user=user, workouts = workouts)
+    
+@app.route('/user/<username>/completed')
+@login_required
+def view_user_completed(username):
+    user = User.query.filter_by(username=username).first()
+    if user == current_user:
+        return redirect(url_for("account"))
+    if not current_user.is_following(user):
+        flash("You are not following that user", "warning")
+        return redirect(url_for("following"))
+    page = request.args.get('page', 1, type=int)
+    workouts = Workout.query.filter_by(user_id = user.id, completed=True).order_by(Workout.target_date).paginate(page=page, per_page=9) 
+    return render_template('user_completed.html', user=user, workouts = workouts)

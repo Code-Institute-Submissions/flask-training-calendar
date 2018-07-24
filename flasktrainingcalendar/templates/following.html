@@ -1,19 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>Following Route</h1>
-    {% for workout in workouts %}
-        <div class="col-sm-12">
-            <article class="media content-section calendar-cell">
-                <div class="media-body">
-                    <div class="article-metadata">
-                        <a class="mr-2" href="#"></a>
-                        <small class="text-muted">{{workout.target_date}}{{ workout.author.username }}</small>
+    <div class="row">
+        {% for user in users %}
+            <div class="col-md-12">
+                <div class="content-section">
+                    <div class="media">
+                        <img class="rounded-circle account-img" src="{{url_for('static', filename='profile_pics/' + user.image_file)}}">
+                        <div class="media-body">
+                            <a href="{{url_for('view_user', username=user.username)}}"><h2 class="account-heading">{{ user.username }}</h2></a>
+                            {% if current_user.is_following(user)%}
+                                <p><a href="{{url_for('unfollow', username=user.username)}}">Unfollow this User</a></p>
+                            {% endif %}
+                        </div>
                     </div>
-                    <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
                 </div>
-            </article> 
-        </div>
-    {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+            
     
     
 {% endblock content %}
