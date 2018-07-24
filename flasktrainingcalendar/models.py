@@ -8,6 +8,11 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+followers = db.Table('followers', 
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,6 +21,30 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     workouts = db.relationship('Workout', backref='author', lazy=True)
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic'
+    )
+    
+    def is_following(self, user):
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+    
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+            
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+            
+        
+    def followed_workouts(self):
+        return Workout.query.join(
+            followers, (followers.c.followed_id == Workout.user_id)).filter(
+                followers.c.follower_id == self.id).order_by(
+                    Workout.target_date)
     
     def get_reset_token(self, expires_sec=1800):
         s =Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -31,7 +60,8 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
     
     def __repr__(self):
-        return '<User %r>' % self.username 
+        return 'User id: {0}, username: {1}, followed: {2}'.format(self.id, self.username, self.followed)
+
 
         
 class Workout(db.Model):
@@ -45,7 +75,7 @@ class Workout(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     def __repr__(self):
-        return '<Workout %r>' % self.workout_type
+        return 'Workout id: {0}, description: {1}{2}{3}, completed: {4}'.format(self.id, self.workout_distance, self.distance_unit, self.workout_type, self.completed)
         
 class Photo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,4 +83,4 @@ class Photo(db.Model):
     workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'), nullable=False)
     
     def __repr__(self):
-        return '<Photo id: {0}, image_file: {1}, workout_id: {2}>'.format(self.id, self.image_file, self.workout_id)
+        return 'Photo id: {0}, image_file: {1}, workout_id: {2}'.format(self.id, self.image_file, self.workout_id)

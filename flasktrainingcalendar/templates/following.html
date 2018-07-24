@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Following Route</h1>
+    {% for workout in workouts %}
+        <div class="col-sm-12">
+            <article class="media content-section calendar-cell">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="#"></a>
+                        <small class="text-muted">{{workout.target_date}}{{ workout.author.username }}</small>
+                    </div>
+                    <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
+                </div>
+            </article> 
+        </div>
+    {% endfor %}
+    
+    
+{% endblock content %}

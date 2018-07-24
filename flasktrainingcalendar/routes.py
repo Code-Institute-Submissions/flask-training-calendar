@@ -227,3 +227,46 @@ def reset_token(token):
         flash("Your password has been updated, please login", "success")
         return redirect(url_for("login"))
     return render_template('reset_token.html', title='Reset Password', form=form)
+    
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash("No such user exists", "warning")
+        return redirect(url_for("home"))
+    if user == current_user:
+        flash("You can not follow yourself", "warning")
+        return redirect(url_for("home"))
+    current_user.follow(user)
+    db.session.commit()
+    flash("You are now following {0}".format(username), "success")
+    return redirect(url_for("home"))
+    
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash("No such user exists", "warning")
+        return redirect(url_for("home"))
+    if user == current_user:
+        flash("You can not unfollow yourself", "warning")
+        return redirect(url_for("home"))
+    current_user.unfollow(user)
+    db.session.commit()
+    flash("You are no longer following {0}".format(username), "success")
+    return redirect(url_for("home"))
+    
+@app.route('/following')
+def following():
+    workouts = current_user.followed_workouts()
+    return render_template("following.html", workouts=workouts)
+    
+@app.route('/user/<username>')
+@login_required
+def view_user(username):
+    user = User.query.filter_by(username=username).first()
+    if user == current_user:
+        return redirect(url_for("account"))
+    return render_template('user.html', user=user)
