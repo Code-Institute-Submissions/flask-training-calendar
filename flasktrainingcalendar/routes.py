@@ -5,7 +5,7 @@ import boto3
 from flask import Flask, render_template, url_for, flash, redirect, request, abort
 from flasktrainingcalendar import app, db, bcrypt, mail
 from flasktrainingcalendar.models import User, Workout, Photo
-from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm, WorkoutPhotoForm, RequestResetForm, ResetPasswordForm
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm, WorkoutPhotoForm, RequestResetForm, ResetPasswordForm, UserSearchForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date
 from flask_mail import Message
@@ -258,11 +258,19 @@ def unfollow(username):
     flash("You are no longer following {0}".format(username), "success")
     return redirect(url_for("following"))
     
-@app.route('/following')
+@app.route('/following', methods=["POST", "GET"])
 def following():
     all_users = User.query.all()
     users = [user for user in all_users if current_user.is_following(user)]
-    return render_template("following.html", users=users)
+    form = UserSearchForm()
+    if form.validate_on_submit():
+        username = form.search.data
+        user = User.query.filter_by(username = username).first()
+        if user is None:
+            flash("That user does not exist", "warning")
+            return redirect(url_for("following"))
+        return redirect(url_for("view_user", username=user.username))
+    return render_template("following.html", users=users, form=form)
     
 @app.route('/user/<username>')
 @login_required
