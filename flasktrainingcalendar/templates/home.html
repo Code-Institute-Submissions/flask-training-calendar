@@ -2,24 +2,27 @@
 {% block content %}
     {% if current_user.is_authenticated %}
         {% if workouts %}
-            {% for workout in workouts %}
-                <article class="media content-section">
-                    <div class="media-body">
-                        <div class="article-metadata">
-                            <h1>Todays workouts:</h1>
-                        </div>
-                        <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
-                        <p class="article-content">{{workout.description}}</p>
-                    </div>
-                </article>
-            {% endfor %}
-        {% else %}
-            <article class="media content-section">
+            <article class="media single-info">
                 <div class="media-body">
-                    <div class="article-metadata">
+                    <div class="single-info-header">
+                        <h1>Todays workouts:</h1>
+                    </div>
+                    {% for workout in workouts %}
+                        <div class="run-description">
+                            <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
+                        </div>
+                    {% endfor %}
+                </div>
+            </article>
+        {% else %}
+            <article class="media single-info">
+                <div class="media-body">
+                    <div class="single-info-header">
                         <h1>No Workout Today</h1>
                     </div>
-                    <h2>Go Eat That Buritto!</h2>
+                    <div class="run-description">
+                        <h2>Go Eat That Buritto!</h2>
+                    </div>
                 </div>
             </article>
         {% endif %}

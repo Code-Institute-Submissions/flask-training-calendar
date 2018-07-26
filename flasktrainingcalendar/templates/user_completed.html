@@ -14,21 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        {% for workout in workouts.items %}
-            <div class="col-md-4 col-sm-12">
-               <article class="media content-section calendar-cell">
-                    <div class="media-body">
-                        <div class="article-metadata">
-                            <a class="mr-2" href="#"></a>
-                            <small class="text-muted">{{workout.target_date}}</small>
-                        </div>
-                        <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
-                    </div>
-                </article> 
-            </div>
-        {% endfor %}
-    </div>
+    {% include 'workouts_display.html' %}
     {% for page_num in workouts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}
             {% if workouts.page == page_num %}

@@ -32,11 +32,46 @@ h2{
 }
 
 .content-section {
-  background: rgba(255,255,255,0.2);
+  background: rgb(255,255,255);
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
+}
+
+.calendar-cell {
+  height: 160px;
+  background: rgba(255,255,255,0.8);
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.calendar-date{
+  color: red;
+  text-align: center;
+}
+
+.run-description{
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  color: red;
+  text-align: center;
+  font-size: 15px;
+}
+
+.single-info{
+  background: rgb(255,255,255,0.8);
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.single-info-header{
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 .article-title {
@@ -63,6 +98,8 @@ a.article-title:hover {
   margin-bottom: 4px;
   border-bottom: 1px solid #e3e3e3
 }
+
+
 
 .article-metadata a:hover {
   color: #333;
@@ -95,9 +132,7 @@ a.article-title:hover {
   border-right: 1px solid #ffffff;
 }
 
-.calendar-cell {
-  height: 160px;
-}
+
 
 .title-page {
   margin: 0 auto;
