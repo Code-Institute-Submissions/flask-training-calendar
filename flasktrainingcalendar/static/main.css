@@ -46,10 +46,11 @@ h2{
   border: 1px solid #dddddd;
   border-radius: 10px;
   margin-bottom: 20px;
+  transition: all .2s ease-in-out;
 }
 
 .calendar-date{
-  color: red;
+  color: #ca2a2a;
   text-align: center;
 }
 
@@ -61,12 +62,20 @@ h2{
   font-size: 15px;
 }
 
+.run-description-date{
+  color: red;
+}
+
 .single-info{
   background: rgb(255,255,255,0.8);
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+.page-center{
+  margin-top: 40%;
 }
 
 .single-info-header{
@@ -79,8 +88,11 @@ h2{
 }
 
 a.article-title:hover {
-  color: #428bca;
   text-decoration: none;
+}
+
+article.calendar-cell:hover {
+  transform: scale(1.05);
 }
 
 .article-content {
@@ -128,9 +140,6 @@ a.article-title:hover {
     font-family: 'Merienda', cursive;
 }
 
-.nav-item-border {
-  border-right: 1px solid #ffffff;
-}
 
 
 
@@ -140,4 +149,8 @@ a.article-title:hover {
 
 .center-align {
   text-align: center;
+}
+
+.inline{
+  display: inline;
 }

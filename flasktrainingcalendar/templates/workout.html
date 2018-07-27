@@ -1,23 +1,21 @@
 {% extends "layout.html" %} 
 {% block content %}
 
-    <article class="media content-section">
+    <article class="media single-info">
         <div class="media-body">
-            <div class="article-metadata">
-                <small class="text-muted">{{ workout.target_date.strftime('%Y-%m-%d') }}</small>
+            <div>
+                <p class="run-description-date">{{ workout.target_date.strftime('%Y-%m-%d') }}</p>
             </div>
             <h2 class="article-title">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</h2>
             <p class="article-content">{{ workout.description }}</p>
             {% if workout.user_id == current_user.id %}
                 <div>
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{url_for('update_workout', workout_id=workout.id)}}">Update</a>
-                    <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     {% if workout.completed == False%}
-                    <form method="POST" action="">
+                    <form method="POST" action="" class="inline">
                         {{completed_form.hidden_tag()}}
-                        <div class="form-group">
-                            {{ completed_form.submit(class='btn btn-outline-info') }}
-                        </div>
+                        {{ completed_form.submit(class='btn btn-info btn-sm mt-1 mb-1') }}
                     </form>
                     {% else %}
                     <form method="POST" action="", enctype="multipart/form-data">

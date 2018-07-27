@@ -15,7 +15,7 @@
                 </div>
             </article>
         {% else %}
-            <article class="media single-info">
+            <article class="media single-info page-center">
                 <div class="media-body">
                     <div class="single-info-header">
                         <h1>No Workout Today</h1>
@@ -26,30 +26,25 @@
                 </div>
             </article>
         {% endif %}
-        {% else %}
-            <article class="media content-section">
-                <div class="media-body center-align">
+    {% else %}
+        <article class="media single-info page-center">
+            <div class="media-body">
+                <div class="single-info-header">
                     <h1>Welcome to Running Calendar</h1>
                 </div>
-            </article>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <article class="media content-section title-page">
-                        <div class="media-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="run-description">
                             <a href="{{url_for('login')}}"><h2>Login to your account here</h2></a>
                         </div>
-                    </article>
-                </div>
-                
-                <div class="col-md-6">
-                    <article class="media content-section title-page">
-                        <div class="media-body">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="run-description">
                             <a href="{{url_for('register')}}"><h2>No account? Sign up here</h2></a>
                         </div>
-                    </article>
+                    </div>
                 </div>
             </div>
-            
+        </article>
     {% endif %}
 {% endblock content %}

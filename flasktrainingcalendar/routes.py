@@ -26,7 +26,7 @@ def get_workouts():
 @app.route('/workouts/completed')
 def get_completed_workouts():
     page = request.args.get('page', 1, type=int)
-    workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date).paginate(page=page, per_page=9)
+    workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date.desc()).paginate(page=page, per_page=9)
     return render_template("completed_workouts.html", workouts=workouts, title="completed workouts")
     
 @app.route('/register', methods=['POST', "GET"])
@@ -42,6 +42,9 @@ def register():
         flash("Your account has been successfully created, please login", "success")
         return redirect(url_for("home"))
     return render_template("register.html", title="register", form=form)
+
+
+
     
 @app.route('/login', methods=["POST", "GET"])
 def login():
@@ -292,5 +295,5 @@ def view_user_completed(username):
         flash("You are not following that user", "warning")
         return redirect(url_for("following"))
     page = request.args.get('page', 1, type=int)
-    workouts = Workout.query.filter_by(user_id = user.id, completed=True).order_by(Workout.target_date).paginate(page=page, per_page=9) 
+    workouts = Workout.query.filter_by(user_id = user.id, completed=True).order_by(Workout.target_date.desc()).paginate(page=page, per_page=9) 
     return render_template('user_completed.html', user=user, workouts = workouts)
