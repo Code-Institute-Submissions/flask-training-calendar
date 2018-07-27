@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="content-section">
+    <div class="single-info">
         <form method="POST" action="">
             {{form.hidden_tag()}}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Sign Up</legend>
+                <legend class="run-description-date mb-4">Sign Up</legend>
                 <div class="form-group">
                     {{ form.username.label(class='form-control-label') }}
                     {% if form.username.errors %}
@@ -59,13 +59,8 @@
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class='btn btn-outline-info') }}
+                {{ form.submit(class='btn info') }}
             </div>
         </form>
-    </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already have an account? <a class="ml-2" href="{{url_for('login')}}">Sign In</a>
-        </small>
     </div>
 {% endblock content %}

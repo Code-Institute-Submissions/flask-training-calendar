@@ -1,34 +1,36 @@
 {% extends "layout.html" %}
 {% block content %}
-    <form method="POST" action="">
-        {{form.hidden_tag()}}
-        <fieldset class="form-group">
+    <div class="single-info">
+        <form method="POST" action="">
+            {{form.hidden_tag()}}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form.search.label(class='form-control-label') }}
+                    {% if form.search.errors %}
+                        {{ form.search(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.search.errors%}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.search(class='form-control form-control-lg') }}
+                    {% endif %}
+                </div>
+            </fieldset>
             <div class="form-group">
-                {{ form.search.label(class='form-control-label') }}
-                {% if form.search.errors %}
-                    {{ form.search(class="form-control form-control-lg is-invalid")}}
-                    <div class="invalid-feedback">
-                        {% for error in form.search.errors%}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.search(class='form-control form-control-lg') }}
-                {% endif %}
+                {{ form.submit(class='btn info') }}
             </div>
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class='btn btn-outline-info') }}
-        </div>
-    </form>
+        </form>
+    </div>    
     <div class="row">
         {% for user in users %}
             <div class="col-md-12">
-                <div class="content-section">
+                <div class="single-info">
                     <div class="media">
                         <img class="rounded-circle account-img" src="{{url_for('static', filename='profile_pics/' + user.image_file)}}">
                         <div class="media-body">
-                            <a href="{{url_for('view_user', username=user.username)}}"><h2 class="account-heading">{{ user.username }}</h2></a>
+                            <a href="{{url_for('view_user', username=user.username)}}" class="no-underline"><h2 class="account-heading">{{ user.username }}</h2></a>
                             {% if current_user.is_following(user)%}
                                 <p><a href="{{url_for('unfollow', username=user.username)}}">Unfollow this User</a></p>
                             {% endif %}

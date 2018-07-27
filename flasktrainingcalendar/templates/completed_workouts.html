@@ -4,9 +4,9 @@
     {% for page_num in workouts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}
             {% if workouts.page == page_num %}
-                <a class="btn btn-light mb-4" href="{{ url_for('get_completed_workouts', page=page_num) }}">{{ page_num }}</a>
+                <a class="btn-small light mb-4" href="{{ url_for('get_completed_workouts', page=page_num) }}">{{ page_num }}</a>
             {% else %}
-                <a class="btn btn-outline-light mb-4" href="{{ url_for('get_completed_workouts', page=page_num) }}">{{ page_num }}</a>
+                <a class="btn-small outline-light mb-4" href="{{ url_for('get_completed_workouts', page=page_num) }}">{{ page_num }}</a>
             {% endif %}
         {% else %}
             ...

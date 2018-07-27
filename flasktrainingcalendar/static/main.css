@@ -63,7 +63,7 @@ h2{
 }
 
 .run-description-date{
-  color: red;
+  color: #ca2a2a;
 }
 
 .single-info{
@@ -75,7 +75,7 @@ h2{
 }
 
 .page-center{
-  margin-top: 40%;
+  margin-top: 30%;
 }
 
 .single-info-header{
@@ -128,12 +128,16 @@ article.calendar-cell:hover {
   height: 125px;
   width: 125px;
   margin-right: 20px;
-  margin-bottom: 16px;
 }
 
 .account-heading {
   font-size: 2.5rem;
 }
+
+.account-heading:hover {
+  color: #767676;
+}
+
 
 .navbar-dark .navbar-brand {
     color: #fff;
@@ -153,4 +157,77 @@ article.calendar-cell:hover {
 
 .inline{
   display: inline;
+}
+
+.btn {
+    border: 2px solid black;
+    background-color: inherit;
+    color: black;
+    padding: 12px 24px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.info {
+    border-color: #ca2a2a;
+    color: #ca2a2a;
+}
+
+.info:hover {
+    background: #ca2a2a;
+    color: white;
+}
+
+.update {
+    border-color: #5299f1;
+    color: #5299f1;
+}
+
+.update:hover {
+    background: #5299f1;
+    color: white;
+}
+
+.complete {
+    border-color: #10af2b;
+    color: #10af2b;
+}
+
+.complete:hover {
+    background: #10af2b;
+    color: white;
+}
+
+.btn-small {
+    background-color: inherit;
+    color: black;
+    padding: 8px 16px;
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.light {
+    border: 1px solid rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.8);
+}
+
+.light:hover {
+    background: rgba(255,255,255,0.7);
+    text-decoration: none;
+}
+
+.outline-light {
+    border: 1px solid rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.8);
+}
+
+.outline-light:hover {
+    background: rgba(255,255,255,0.8);
+    text-decoration: none;
+}
+
+.no-underline:hover{
+  text-decoration: none;
 }

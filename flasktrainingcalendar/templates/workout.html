@@ -10,15 +10,15 @@
             <p class="article-content">{{ workout.description }}</p>
             {% if workout.user_id == current_user.id %}
                 <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{url_for('update_workout', workout_id=workout.id)}}">Update</a>
-                    <button type="button" class="btn btn-danger btn-sm mt-1 mb-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    <a class="btn update btn-sm mt-1 mb-1" href="{{url_for('update_workout', workout_id=workout.id)}}">Update</a>
+                    <button type="button" class="btn info btn-sm mt-1 mb-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     {% if workout.completed == False%}
                     <form method="POST" action="" class="inline">
                         {{completed_form.hidden_tag()}}
-                        {{ completed_form.submit(class='btn btn-info btn-sm mt-1 mb-1') }}
+                        {{ completed_form.submit(class='btn complete btn-sm mt-1 mb-1') }}
                     </form>
                     {% else %}
-                    <form method="POST" action="", enctype="multipart/form-data">
+                    <form method="POST" action="", enctype="multipart/form-data" class="mt-4">
                         {{photo_form.hidden_tag()}}
                         <div class="form-group">
                             {{ photo_form.picture.label() }}
@@ -30,7 +30,7 @@
                             {% endif %}
                         </div>
                         <div class="form-group">
-                            {{ photo_form.upload(class='btn btn-outline-info') }}
+                            {{ photo_form.upload(class='btn complete') }}
                         </div>
                     </form>
                     {% endif %}
