@@ -5,7 +5,7 @@ import boto3
 from flask import Flask, render_template, url_for, flash, redirect, request, abort
 from flasktrainingcalendar import app, db, bcrypt, mail
 from flasktrainingcalendar.models import User, Workout, Photo, Comment
-from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm, WorkoutPhotoForm, RequestResetForm, ResetPasswordForm, UserSearchForm, CommentForm
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm, WorkoutPhotoForm, RequestResetForm, ResetPasswordForm, UserSearchForm, CommentForm, EditCommentForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date
 from flask_mail import Message
@@ -151,13 +151,28 @@ def workout(workout_id):
         db.session.commit()
         return redirect(url_for("workout", workout_id=workout.id))
     comment_form = CommentForm()
+    comment_args  = request.args.get('comment_id', None)
+    edit_comment_form = EditCommentForm()
+    if comment_args is not None:
+        comment = db.session.query(Comment).filter_by(id=comment_args).first()
+    else:
+        comment = None
+    
+    if comment and edit_comment_form.validate_on_submit():
+        comment.text = edit_comment_form.comment.data
+        db.session.commit()
+        flash("Your comment has been updated!", "success")
+        return redirect(url_for("workout", workout_id=workout.id))
+    elif comment and request.method == "GET":
+        edit_comment_form.comment.data = comment.text
+    
     if comment_form.submit_comment.data and comment_form.validate_on_submit():
         comment = Comment(text = comment_form.comment.data, user_id = current_user.id, workout_id = workout.id)
         db.session.add(comment)
         db.session.commit()
         flash('Your comment has been added', 'success')
         return redirect(url_for("workout", workout_id=workout.id))
-    return render_template("workout.html", title=workout.workout_type, workout=workout, photos=photos, comments=comments, completed_form=completed_form, photo_form=photo_form, comment_form=comment_form)
+    return render_template("workout.html", title=workout.workout_type, workout=workout, photos=photos, comments=comments, comment_args=comment_args, completed_form=completed_form, photo_form=photo_form, comment_form=comment_form, edit_comment_form=edit_comment_form)
     
 @app.route("/workout/<int:workout_id>/update", methods=["GET", "POST"])
 @login_required
@@ -197,6 +212,17 @@ def delete_workout(workout_id):
         db.session.commit()
     flash("Your post has been deleted", "success")
     return redirect(url_for('get_workouts'))
+    
+@app.route("/delete_comment/<int:comment_id>/<int:workout_id>", methods=["POST"])
+@login_required
+def delete_comment(comment_id, workout_id):
+    comment = Comment.query.get_or_404(comment_id)
+    if comment.author.id != current_user.id:
+        abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    flash("Your comment has been deleted", "success")
+    return redirect(url_for('workout', workout_id=workout_id))
 
 
 def send_reset_email(user):

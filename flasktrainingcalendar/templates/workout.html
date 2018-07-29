@@ -37,40 +37,73 @@
                 </div>
             {% endif %}
             
-            
-            <p class="mt-50">Comments:</p>
-            <div class="comment-section">
-                {% for comment in comments %}
-                    <div class="single-comment">
-                        
-                        <img class="rounded-circle comment-img" src="{{url_for('static', filename='profile_pics/' + comment.author.image_file)}}">
-                        <div class="something">
-                        <p class="comment"><strong>{{comment.author.username}}:</strong> {{comment.text}}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <form method="POST" action="">
-                {{comment_form.hidden_tag()}}
-                <fieldset class="form-group">
-                    <div class="form-group">
-                        {{ comment_form.comment.label(class='form-control-label') }}
-                        {% if comment_form.comment.errors %}
-                            {{ comment_form.comment(class="form-control form-control-lg is-invalid")}}
-                            <div class="invalid-feedback">
-                                {% for error in comment_form.comment.errors%}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
+            {% if comments %}
+                <p class="mt-50">Comments:</p>
+                <div class="comment-section">
+                    {% for comment in comments %}
+                        <div class="single-comment">
+                            <img class="rounded-circle comment-img" src="{{url_for('static', filename='profile_pics/' + comment.author.image_file)}}">
+                            <div class="row">
+                                <div class="something">
+                                    <p class="comment"><strong>{{comment.author.username}}:</strong> {{comment.text}}</p>
+                                </div>
                             </div>
-                        {% else %}
-                            {{ comment_form.comment(class='form-control form-control-lg') }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ comment_form.submit_comment(class='btn info') }}
-                    </div>
-                </fieldset>
-            </form>
+                            {% if current_user.id == comment.author.id%}
+                                <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
+                                <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
+                                    <input type="submit" class="btn-small" value="Delete"/>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% if (comment_args == None) %}
+                <form method="POST" action="">
+                    {{comment_form.hidden_tag()}}
+                    <fieldset class="form-group">
+                        <div class="form-group">
+                            {{ comment_form.comment.label(class='form-control-label') }}
+                            {% if comment_form.comment.errors %}
+                                {{ comment_form.comment(class="form-control form-control-lg is-invalid")}}
+                                <div class="invalid-feedback">
+                                    {% for error in comment_form.comment.errors%}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ comment_form.comment(class='form-control form-control-lg') }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ comment_form.submit_comment(class='btn info') }}
+                        </div>
+                    </fieldset>
+                </form>
+            {% else%}
+                <form method="POST" action="">
+                    {{edit_comment_form.hidden_tag()}}
+                    <fieldset class="form-group">
+                        <div class="form-group">
+                            {{ edit_comment_form.comment.label(class='form-control-label') }}
+                            {% if edit_comment_form.comment.errors %}
+                                {{ edit_comment_form.comment(class="form-control form-control-lg is-invalid")}}
+                                <div class="invalid-feedback">
+                                    {% for error in edit_comment_form.comment.errors%}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ edit_comment_form.comment(class='form-control form-control-lg') }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ edit_comment_form.submit_update(class='btn info') }}
+                        </div>
+                    </fieldset>
+                </form>
+            {% endif %}
         </div> 
     </article>
     

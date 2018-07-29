@@ -87,3 +87,7 @@ class UserSearchForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = StringField('Enter a comment', validators=[DataRequired(), Length(max=300)])
     submit_comment = SubmitField('Post Comment')
+    
+class EditCommentForm(FlaskForm):
+    comment = StringField('Edit your comment', validators=[DataRequired(), Length(max=300)])
+    submit_update = SubmitField('Update Comment')

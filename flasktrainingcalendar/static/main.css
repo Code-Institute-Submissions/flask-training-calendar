@@ -130,6 +130,7 @@ article.calendar-cell:hover {
   width: 40px;
   margin: 8px;
   float: left;
+  margin-bottom: 50px;
 }
 
 .article-metadata {
