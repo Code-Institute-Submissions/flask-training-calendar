@@ -4,8 +4,8 @@ import string
 import boto3
 from flask import Flask, render_template, url_for, flash, redirect, request, abort
 from flasktrainingcalendar import app, db, bcrypt, mail
-from flasktrainingcalendar.models import User, Workout, Photo
-from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm, WorkoutPhotoForm, RequestResetForm, ResetPasswordForm, UserSearchForm
+from flasktrainingcalendar.models import User, Workout, Photo, Comment
+from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewWorkoutForm, CompletedWorkoutForm, WorkoutPhotoForm, RequestResetForm, ResetPasswordForm, UserSearchForm, CommentForm
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date
 from flask_mail import Message
@@ -134,6 +134,7 @@ def save_workout_picture(form_picture):
 def workout(workout_id):
     workout=Workout.query.get_or_404(workout_id)
     photos = Photo.query.filter_by(workout_id=workout.id).all()
+    comments = Comment.query.filter_by(workout_id=workout.id).all()
     if workout.user_id != current_user.id and not current_user.is_following(workout.author):
         return redirect(url_for('get_workouts'))
     completed_form = CompletedWorkoutForm()
@@ -149,7 +150,14 @@ def workout(workout_id):
         db.session.add(photo)
         db.session.commit()
         return redirect(url_for("workout", workout_id=workout.id))
-    return render_template("workout.html", title=workout.workout_type, workout=workout, photos=photos, completed_form=completed_form, photo_form=photo_form)
+    comment_form = CommentForm()
+    if comment_form.submit_comment.data and comment_form.validate_on_submit():
+        comment = Comment(text = comment_form.comment.data, user_id = current_user.id, workout_id = workout.id)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment has been added', 'success')
+        return redirect(url_for("workout", workout_id=workout.id))
+    return render_template("workout.html", title=workout.workout_type, workout=workout, photos=photos, comments=comments, completed_form=completed_form, photo_form=photo_form, comment_form=comment_form)
     
 @app.route("/workout/<int:workout_id>/update", methods=["GET", "POST"])
 @login_required

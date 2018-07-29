@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     workouts = db.relationship('Workout', backref='author', lazy=True)
+    comments = db.relationship('Comment', backref='author', lazy=True)
     followed = db.relationship(
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
@@ -84,3 +85,12 @@ class Photo(db.Model):
     
     def __repr__(self):
         return 'Photo id: {0}, image_file: {1}, workout_id: {2}'.format(self.id, self.image_file, self.workout_id)
+        
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(300), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'), nullable=False)
+    
+    def __repr__(self):
+        return 'comment_id: {0}, user_id: {1}, workout_id: {2}, text: {3}'.format(self.id, self.user_id, self.workout_id, self.text)

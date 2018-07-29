@@ -74,6 +74,26 @@ h2{
   margin-bottom: 20px;
 }
 
+.comment-section{
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.mt-50{
+  margin-top: 50px;
+}
+
+.single-comment{
+  border-bottom: 1px solid #dddddd;
+  overflow: hidden;
+}
+
+.comment{
+  display: inline;
+}
+
 .page-center{
   margin-top: 30%;
 }
@@ -103,6 +123,13 @@ article.calendar-cell:hover {
   height: 65px;
   width: 65px;
   margin-right: 16px;
+}
+
+.comment-img {
+  height: 40px;
+  width: 40px;
+  margin: 8px;
+  float: left;
 }
 
 .article-metadata {
@@ -160,10 +187,10 @@ article.calendar-cell:hover {
 }
 
 .btn {
-    border: 2px solid black;
+    border: 1px solid black;
     background-color: inherit;
     color: black;
-    padding: 12px 24px;
+    padding: 6px 12px;
     font-size: 14px;
     cursor: pointer;
     border-radius: 5px;
@@ -234,4 +261,9 @@ article.calendar-cell:hover {
 
 .gallery-margin{
   margin: 5px;
+}
+
+.something{
+  display: inline;
+  overflow: hidden;
 }
