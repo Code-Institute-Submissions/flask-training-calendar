@@ -39,9 +39,16 @@
         </div>
     </article>
     
-    {% for photo in photos %}
-        <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200" class="img-thumbnail"></img>
-    {% endfor %}
+
+    <div class="row">
+        {% for photo in photos %}
+            <div class="gallery-margin col-xs-4 col-sm-4 col-md-2"> 
+                <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200" class="img-thumbnail"></img>
+            </div>
+        {% endfor %}
+    </div>
+    
+    
     
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

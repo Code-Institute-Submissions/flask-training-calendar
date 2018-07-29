@@ -231,3 +231,7 @@ article.calendar-cell:hover {
 .no-underline:hover{
   text-decoration: none;
 }
+
+.gallery-margin{
+  margin: 5px;
+}
