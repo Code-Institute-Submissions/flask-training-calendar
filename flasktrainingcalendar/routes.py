@@ -9,12 +9,18 @@ from flasktrainingcalendar.forms import RegistrationForm, LoginForm, UpdateAccou
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import date
 from flask_mail import Message
+from random import choice
+
+
+with open('flasktrainingcalendar/motivation.txt', 'r') as f:
+    messages = f.read().split("\n")
 
 @app.route('/')
 def home():
     if current_user.is_authenticated:
         workouts = Workout.query.filter_by(user_id = current_user.id, target_date=date.today(), completed=False).all()
-        return render_template("home.html", workouts=workouts)
+        message = choice(messages)
+        return render_template("home.html", workouts=workouts, message=message)
     return render_template("home.html")
 
 @app.route('/workouts')
@@ -200,7 +206,7 @@ def update_workout(workout_id):
         form.distance_unit.data = workout.distance_unit
         form.description.data = workout.description
         form.target_date.data = workout.target_date
-    return render_template('new_workout.html', title='Update Post', form=form, legend='Update Workout')
+    return render_template('new_workout.html', title='Update Workout', form=form, legend='Update Workout')
     
 @app.route("/workout/<int:workout_id>/delete", methods=["POST"])
 @login_required
@@ -315,7 +321,7 @@ def following():
             flash("That user does not exist", "warning")
             return redirect(url_for("following"))
         return redirect(url_for("view_user", username=user.username))
-    return render_template("following.html", users=users, form=form)
+    return render_template("following.html", title="following", users=users, form=form)
     
 @app.route('/user/<username>')
 @login_required
@@ -325,7 +331,7 @@ def view_user(username):
         return redirect(url_for("account"))
     page = request.args.get('page', 1, type=int)
     workouts = Workout.query.filter_by(user_id = user.id, completed=False).order_by(Workout.target_date).paginate(page=page, per_page=9) 
-    return render_template('user.html', user=user, workouts = workouts)
+    return render_template('user.html', title=user.username, user=user, workouts = workouts)
     
 @app.route('/user/<username>/completed')
 @login_required
@@ -338,4 +344,4 @@ def view_user_completed(username):
         return redirect(url_for("following"))
     page = request.args.get('page', 1, type=int)
     workouts = Workout.query.filter_by(user_id = user.id, completed=True).order_by(Workout.target_date.desc()).paginate(page=page, per_page=9) 
-    return render_template('user_completed.html', user=user, workouts = workouts)
+    return render_template('user_completed.html', title=user.username, user=user, workouts = workouts)

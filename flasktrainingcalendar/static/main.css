@@ -275,3 +275,8 @@ article.calendar-cell:hover {
   background-color: inherit;
   border: none;
 }
+
+.motivation{
+  font-family: 'Merienda', cursive;
+  color: #ca2a2a;
+}

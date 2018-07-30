@@ -14,6 +14,11 @@
             </div>
         </div>
     </div>
+    <article class="media single-info">
+        <div class="media-body" style="text-align:center">
+            <h2>Completed Workouts</h2>
+        </div>
+    </article>
     {% include 'workouts_display.html' %}
     {% for page_num in workouts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}
