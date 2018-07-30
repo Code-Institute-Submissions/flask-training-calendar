@@ -110,9 +110,12 @@
 
     <div class="row">
         {% for photo in photos %}
-            <div class="gallery-margin col-xs-4 col-sm-4 col-md-2"> 
-                <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200" class="img-thumbnail"></img>
+            <div class="col-lg-3 col-sm-6" style="text-align:center">
+                <a href="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" data-lightbox="img-gallery"> 
+                    <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200"  class="img-thumbnail workout-img"></img>
+                </a>
             </div>
+            <div class="clearfix"></div>
         {% endfor %}
     </div>
     

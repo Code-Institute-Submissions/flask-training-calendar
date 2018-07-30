@@ -203,6 +203,7 @@ def update_workout(workout_id):
 def delete_workout(workout_id):
     workout = Workout.query.get_or_404(workout_id)
     photos = Photo.query.filter_by(workout_id=workout.id).all()
+    comments = Comment.query.filter_by(workout_id=workout.id).all()
     if workout.user_id != current_user.id:
         abort(403)
     db.session.delete(workout)
@@ -210,7 +211,10 @@ def delete_workout(workout_id):
     for photo in photos:
         db.session.delete(photo)
         db.session.commit()
-    flash("Your post has been deleted", "success")
+    for comment in comments:
+        db.session.delete(comment)
+        db.session.commit()    
+    flash("Your workout has been deleted", "success")
     return redirect(url_for('get_workouts'))
     
 @app.route("/delete_comment/<int:comment_id>/<int:workout_id>", methods=["POST"])

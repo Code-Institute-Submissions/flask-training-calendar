@@ -268,3 +268,10 @@ article.calendar-cell:hover {
   display: inline;
   overflow: hidden;
 }
+
+.workout-img{
+  margin-bottom: 5px;
+  height: 150px !important;
+  background-color: inherit;
+  border: none;
+}
