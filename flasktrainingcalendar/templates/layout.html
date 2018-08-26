@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/css/lightbox.min.css" type="text/css" />
     <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Merienda" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="shortcut icon" href="{{url_for('static', filename='images/running shoe.png')}}">
     {% if title %}
         <title>Run Cal - {{title}}</title>
@@ -23,7 +24,9 @@
         <nav class="navbar navbar-expand-md navbar-dark nav-col fixed-top">
             <div class="container">
                 <img class="brand-img" src="{{url_for('static', filename='images/running shoe.png')}}"></img>
-                <a class="navbar-brand mr-4" href="{{ url_for('home') }}">Running Calendar</a>
+                <a class="navbar-brand mr-4" href="{{ url_for('home') }}">
+                    Running Calendar
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -63,9 +66,9 @@
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
-                {% block content %}{% endblock %}
             </div>
         </div>
+        {% block content %}{% endblock %}
     </main>
     
     

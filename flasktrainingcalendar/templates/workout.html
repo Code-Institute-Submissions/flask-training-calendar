@@ -1,132 +1,135 @@
 {% extends "layout.html" %} 
 {% block content %}
-
-    <article class="media single-info">
-        <div class="media-body">
-            <div>
-                <p class="run-description-date">{{ workout.target_date.strftime('%Y-%m-%d') }}</p>
-            </div>
-            <h2 class="workout-title">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</h2>
-            <p class="workout-content">{{ workout.description }}</p>
-            {% if workout.user_id == current_user.id %}
-                <div>
-                    <a class="btn update btn-sm mt-1 mb-1" href="{{url_for('update_workout', workout_id=workout.id)}}">Update</a>
-                    <button type="button" class="btn info btn-sm mt-1 mb-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                    {% if workout.completed == False%}
-                    <form method="POST" action="" class="inline">
-                        {{completed_form.hidden_tag()}}
-                        {{ completed_form.submit(class='btn complete btn-sm mt-1 mb-1') }}
-                    </form>
-                    {% else %}
-                    <form method="POST" action="", enctype="multipart/form-data" class="mt-4">
-                        {{photo_form.hidden_tag()}}
-                        <div class="form-group">
-                            {{ photo_form.picture.label() }}
-                            {{ photo_form.picture(class="form-control-file") }}
-                            {% if photo_form.picture.errors %}
-                                {% for error in photo_form.picture.errors%}
-                                    <span class='text-danger'>{{ error }}</span>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="form-group">
-                            {{ photo_form.upload(class='btn complete') }}
-                        </div>
-                    </form>
-                    {% endif %}
-                </div>
-            {% endif %}
-            
-            {% if comments %}
-                <p class="mt-50">Comments:</p>
-                <div class="comment-section">
-                    {% for comment in comments %}
-                        <div class="row comment-border">
-                            <div class="col-1">
-                                <img class="rounded-circle comment-img" src="{{url_for('static', filename='profile_pics/' + comment.author.image_file)}}">
-                            </div>
-                            <div class="col-9 pl-5">
-                                <div class="comment-area">
-                                    <p class="comment"><strong>{{comment.author.username}}:</strong> {{comment.text}}</p>
-                                </div>
-                            </div>
-                            {% if current_user.id == comment.author.id%}
-                                <div class="col-1 pl-5 comment-options">
-                                    <span>...</span>
-                                    <div class="dropdown-options">
-                                        <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
-                                        <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
-                                            <input type="submit" class="btn-small" value="Delete"/>
-                                        </form>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            
-            {% if (comment_args == None) %}
-                <form method="POST" action="">
-                    {{comment_form.hidden_tag()}}
-                    <fieldset class="form-group">
-                        <div class="form-group">
-                            {{ comment_form.comment.label(class='form-control-label') }}
-                            {% if comment_form.comment.errors %}
-                                {{ comment_form.comment(class="form-control form-control-lg is-invalid")}}
-                                <div class="invalid-feedback">
-                                    {% for error in comment_form.comment.errors%}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ comment_form.comment(class='form-control form-control-lg') }}
-                            {% endif %}
-                        </div>
-                        <div class="form-group">
-                            {{ comment_form.submit_comment(class='btn info') }}
-                        </div>
-                    </fieldset>
-                </form>
-            {% else%}
-                <form method="POST" action="">
-                    {{edit_comment_form.hidden_tag()}}
-                    <fieldset class="form-group">
-                        <div class="form-group">
-                            {{ edit_comment_form.comment.label(class='form-control-label') }}
-                            {% if edit_comment_form.comment.errors %}
-                                {{ edit_comment_form.comment(class="form-control form-control-lg is-invalid")}}
-                                <div class="invalid-feedback">
-                                    {% for error in edit_comment_form.comment.errors%}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ edit_comment_form.comment(class='form-control form-control-lg') }}
-                            {% endif %}
-                        </div>
-                        <div class="form-group">
-                            {{ edit_comment_form.submit_update(class='btn info') }}
-                        </div>
-                    </fieldset>
-                </form>
-            {% endif %}
-        </div> 
-    </article>
-    
-
     <div class="row">
-        {% for photo in photos %}
-            <div class="col-lg-3 col-sm-6" style="text-align:center">
-                <a href="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" data-lightbox="img-gallery"> 
-                    <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200"  class="img-thumbnail workout-img"></img>
-                </a>
+        <div class="col-md-8">
+            <article class="media single-info">
+                <div class="media-body">
+                    <div>
+                        <p class="run-description-date">{{ workout.target_date.strftime('%Y-%m-%d') }}</p>
+                    </div>
+                    <h2 class="workout-title">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</h2>
+                    <p class="workout-content">{{ workout.description }}</p>
+                    {% if workout.user_id == current_user.id %}
+                        <div>
+                            <a class="btn update btn-sm mt-1 mb-1" href="{{url_for('update_workout', workout_id=workout.id)}}">Update</a>
+                            <button type="button" class="btn info btn-sm mt-1 mb-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                            {% if workout.completed == False%}
+                            <form method="POST" action="" class="inline">
+                                {{completed_form.hidden_tag()}}
+                                {{ completed_form.submit(class='btn complete btn-sm mt-1 mb-1') }}
+                            </form>
+                            {% else %}
+                            <form method="POST" action="", enctype="multipart/form-data" class="mt-4">
+                                {{photo_form.hidden_tag()}}
+                                <div class="form-group">
+                                    {{ photo_form.picture.label() }}
+                                    {{ photo_form.picture(class="form-control-file") }}
+                                    {% if photo_form.picture.errors %}
+                                        {% for error in photo_form.picture.errors%}
+                                            <span class='text-danger'>{{ error }}</span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ photo_form.upload(class='btn complete') }}
+                                </div>
+                            </form>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    
+                    {% if comments %}
+                        <p class="mt-50">Comments:</p>
+                        <div class="comment-section">
+                            {% for comment in comments %}
+                                <div class="row comment-border">
+                                    <div class="col-1">
+                                        <img class="rounded-circle comment-img" src="{{url_for('static', filename='profile_pics/' + comment.author.image_file)}}">
+                                    </div>
+                                    <div class="col-9 pl-5">
+                                        <div class="comment-area">
+                                            <p class="comment"><strong>{{comment.author.username}}:</strong> {{comment.text}}</p>
+                                        </div>
+                                    </div>
+                                    {% if current_user.id == comment.author.id%}
+                                        <div class="col-1 pl-5 comment-options">
+                                            <span>...</span>
+                                            <div class="dropdown-options">
+                                                <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
+                                                <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
+                                                    <input type="submit" class="btn-small" value="Delete"/>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    {% if (comment_args == None) %}
+                        <form method="POST" action="">
+                            {{comment_form.hidden_tag()}}
+                            <fieldset class="form-group">
+                                <div class="form-group">
+                                    {{ comment_form.comment.label(class='form-control-label') }}
+                                    {% if comment_form.comment.errors %}
+                                        {{ comment_form.comment(class="form-control form-control-lg is-invalid")}}
+                                        <div class="invalid-feedback">
+                                            {% for error in comment_form.comment.errors%}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ comment_form.comment(class='form-control form-control-lg') }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ comment_form.submit_comment(class='btn info') }}
+                                </div>
+                            </fieldset>
+                        </form>
+                    {% else%}
+                        <form method="POST" action="">
+                            {{edit_comment_form.hidden_tag()}}
+                            <fieldset class="form-group">
+                                <div class="form-group">
+                                    {{ edit_comment_form.comment.label(class='form-control-label') }}
+                                    {% if edit_comment_form.comment.errors %}
+                                        {{ edit_comment_form.comment(class="form-control form-control-lg is-invalid")}}
+                                        <div class="invalid-feedback">
+                                            {% for error in edit_comment_form.comment.errors%}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ edit_comment_form.comment(class='form-control form-control-lg') }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ edit_comment_form.submit_update(class='btn info') }}
+                                </div>
+                            </fieldset>
+                        </form>
+                    {% endif %}
+                </div> 
+            </article>
+        </div>  
+        
+        <div class="col-md-4">
+            <div class="row">
+                {% for photo in photos %}
+                    <div class="col-lg-3 col-sm-6" style="text-align:center">
+                        <a href="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" data-lightbox="img-gallery"> 
+                            <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200"  class="img-thumbnail workout-img"></img>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                {% endfor %}
             </div>
-            <div class="clearfix"></div>
-        {% endfor %}
+        </div> 
     </div>
-    
-    
+        
     
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
