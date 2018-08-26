@@ -24,16 +24,21 @@ def home():
     return render_template("home.html")
 
 @app.route('/workouts')
+@login_required
 def get_workouts():
     page = request.args.get('page', 1, type=int)
     workouts = Workout.query.filter_by(user_id = current_user.id, completed=False).order_by(Workout.target_date).paginate(page=page, per_page=9)
     return render_template("workouts.html", workouts=workouts, title="workouts")
     
+        
+
 @app.route('/workouts/completed')
+@login_required
 def get_completed_workouts():
     page = request.args.get('page', 1, type=int)
     workouts = Workout.query.filter_by(user_id = current_user.id, completed=True).order_by(Workout.target_date.desc()).paginate(page=page, per_page=9)
     return render_template("completed_workouts.html", workouts=workouts, title="completed workouts")
+    
     
 @app.route('/register', methods=['POST', "GET"])
 def register():
@@ -139,6 +144,7 @@ def save_workout_picture(form_picture):
 
 
 @app.route("/workout/<int:workout_id>", methods=["POST", "GET"])
+@login_required
 def workout(workout_id):
     workout=Workout.query.get_or_404(workout_id)
     photos = Photo.query.filter_by(workout_id=workout.id).all()

@@ -6,11 +6,11 @@
             <div class="media-body">
                 <h2 class="account-heading">{{ user.username }}</h2>
                 {% if current_user.is_following(user)%}
-                <p><a href="{{url_for('unfollow', username=user.username)}}">Unfollow this User</a></p>
+                    <p><a href="{{url_for('unfollow', username=user.username)}}">Unfollow this User</a></p>
+                    <p><a href="{{url_for('view_user_completed', username=user.username)}}">View completed workouts</a></p>
                 {% else %}
-                <p><a href="{{url_for('follow', username=user.username)}}">Follow this User</a></p>
+                    <p><a href="{{url_for('follow', username=user.username)}}">Follow this User</a></p>
                 {% endif %}
-                <p><a href="{{url_for('view_user_completed', username=user.username)}}">View completed workouts</a></p>
             </div>
         </div>
     </div>
