@@ -15,7 +15,7 @@ h2{
   font-size: 1.8em;
 }
 
-.bg-steel {
+.nav-col {
   background-color: #280501;
 }
 
@@ -103,11 +103,11 @@ h2{
   text-align: center;
 }
 
-.article-title {
+.workout-title {
   color: #444444;
 }
 
-a.article-title:hover {
+a.workout-title:hover {
   text-decoration: none;
 }
 
@@ -115,42 +115,23 @@ article.calendar-cell:hover {
   transform: scale(1.05);
 }
 
-.article-content {
+.workout-content {
   white-space: pre-line;
 }
 
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
+.comment-border{
+  border-bottom: 1px solid #ddd;
 }
+
 
 .comment-img {
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   margin: 8px;
   float: left;
-  margin-bottom: 50px;
+  margin-bottom: 15px;
 }
 
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
-}
-
-
-
-.article-metadata a:hover {
-  color: #333;
-  text-decoration: none;
-}
-
-.article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
-}
 
 .account-img {
   height: 125px;
@@ -264,9 +245,10 @@ article.calendar-cell:hover {
   margin: 5px;
 }
 
-.something{
-  display: inline;
+.comment-area{
+  display: block;
   overflow: hidden;
+  padding-top: 10px;
 }
 
 .workout-img{
@@ -279,4 +261,12 @@ article.calendar-cell:hover {
 .motivation{
   font-family: 'Merienda', cursive;
   color: #ca2a2a;
+}
+
+.mb-30{
+  margin-bottom: 30px;
+}
+
+.rounded-edges{
+  border-radius: 5px;
 }

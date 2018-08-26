@@ -2,7 +2,7 @@
 <div class="row">
     {% for workout in workouts.items %}
         <div class="col-md-4 col-sm-12">
-            <a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">
+            <a class="workout-title" href="{{ url_for('workout', workout_id=workout.id) }}">
                 <article class="media calendar-cell">
                     <div class="media-body">
                         <div class="calendar-date">

@@ -9,7 +9,7 @@
                     </div>
                     {% for workout in workouts %}
                         <div class="run-description">
-                            <h2><a class="article-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
+                            <h2><a class="workout-title" href="{{ url_for('workout', workout_id=workout.id) }}">{{workout.workout_distance}}{{workout.distance_unit}} {{workout.workout_type}}</a></h2>
                         </div>
                     {% endfor %}
                 </div>

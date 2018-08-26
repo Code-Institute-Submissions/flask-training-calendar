@@ -53,7 +53,7 @@ class NewWorkoutForm(FlaskForm):
     workout_type=SelectField('Workout Type', choices=[('run', 'run'), ('slow run', 'slow run'), ('tempo run', 'tempo run'), ('interval workout', 'interval workout'), ('fartlek', 'fartlek')],validators=[DataRequired()])
     workout_distance=FloatField('Workout Distance', validators=[DataRequired()])
     distance_unit=SelectField('Unit Of Measurement', choices=[('K', 'kilometres'), (' mile', 'miles'), (' metre', 'metres')],validators=[DataRequired()])
-    target_date=DateField('Target Date', format='%Y-%m-%d', validators=[DataRequired(), DateRange(min=(date.today()))])
+    target_date=DateField('Target Date', format='%Y-%m-%d', validators=[DataRequired()])
     description=TextAreaField('Description')
     submit=SubmitField('Add Workout')
     
