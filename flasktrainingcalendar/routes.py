@@ -150,7 +150,7 @@ def workout(workout_id):
     photos = Photo.query.filter_by(workout_id=workout.id).all()
     comments = Comment.query.filter_by(workout_id=workout.id).all()
     if workout.user_id != current_user.id and not current_user.is_following(workout.author):
-        return redirect(url_for('get_workouts'))
+        return redirect(url_for('home'))
     completed_form = CompletedWorkoutForm()
     if completed_form.submit.data and completed_form.validate_on_submit():
         workout.completed = True

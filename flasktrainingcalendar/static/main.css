@@ -6,15 +6,9 @@ body {
   background-attachment: fixed;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #444444;
-}
+/*---------------------Navbar*/
 
-h2{
-  font-size: 1.8em;
-}
-
-.brand-img{
+.brand-img {
   width: 3.5%;
   margin-right: 1%;
 }
@@ -35,13 +29,14 @@ h2{
   font-weight: 500;
 }
 
-.content-section {
-  background: rgb(255,255,255);
-  padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  margin-bottom: 20px;
+.navbar-dark .navbar-brand {
+  color: #fff;
+  font-family: 'Merienda', cursive;
 }
+
+/*---------------------------end navbar*/
+
+/*---------------------------viewing all upcoming/completed workouts*/
 
 .calendar-cell {
   height: 160px;
@@ -58,21 +53,21 @@ h2{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
 }
 
+.calendar-cell h2 {
+  color: #000 !important;
+}
 
-
-
-
-.calendar-date{
+.calendar-date {
   color: #9e4b81;
   text-align: center;
   transition: all .2s ease-in-out;
 }
 
-.calendar-cell:hover .calendar-date{
+.calendar-cell:hover .calendar-date {
   color: red;
 }
 
-.run-description{
+.run-description {
   padding-bottom: 1px;
   margin-bottom: 4px;
   color: red;
@@ -80,11 +75,15 @@ h2{
   font-size: 15px;
 }
 
-.run-description-date{
+.run-description-date {
   color: #ca2a2a;
 }
 
-.single-info{
+/*--------------------------- end viewing all upcoming/completed workouts*/
+
+/*---------------------------- general css settings*/
+
+.single-info {
   background: #fff8f2;
   padding: 10px 20px;
   border: 1px solid #dddddd;
@@ -92,89 +91,77 @@ h2{
   margin-bottom: 20px;
 }
 
-.comment-section{
+.mt-50 {
+  margin-top: 50px;
+}
+
+.page-center {
+  margin-top: 30%;
+}
+
+.single-info-header {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.motivation {
+  font-family: 'Roboto', sans-serif;
+  color: #ca2a2a;
+}
+
+
+/*-------------------------------comments sections*/
+
+.comment-section {
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.mt-50{
-  margin-top: 50px;
-}
-
-.single-comment{
+.single-comment {
   border-bottom: 1px solid #dddddd;
   overflow: hidden;
   background: none !important;
   border: none !important;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
   content: none;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   min-width: 1px;
 }
 
-.comment{
-  display: inline;
-}
-
-.comment-options{
-  position: relative;
-  display: inline-block;
+.comment-options {
   background: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .comment-options:focus {
-  outline:0;
+  outline: 0;
 }
 
 .dropdown-options {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 12px 16px;
-    z-index: 1;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
 }
 
 .comment-options:hover .dropdown-options {
-    display: block;
+  display: block;
 }
 
-.page-center{
-  margin-top: 30%;
-}
-
-.single-info-header{
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.workout-title {
-  color: #444444;
-}
-
-a.workout-title:hover {
-  text-decoration: none;
-}
-
-
-
-.workout-content {
-  white-space: pre-line;
-}
-
-.comment-border{
+.comment-border {
   border-bottom: 1px solid #ddd;
 }
-
 
 .comment-img {
   height: 50px;
@@ -184,7 +171,45 @@ a.workout-title:hover {
   margin-bottom: 15px;
 }
 
+.inline {
+  display: inline;
+}
 
+.comment-area {
+  display: block;
+  overflow: hidden;
+  padding-top: 10px;
+}
+/*------------------------------------------end comments section*/
+
+
+/*------------------------------------------css for viewing a workout*/
+.workout-title {
+  color: #444444;
+}
+
+a.workout-title:hover {
+  text-decoration: none;
+}
+
+.photo-container {
+  width: 100%;
+}
+
+.workout-img {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  transition: all .2s ease-in-out;
+}
+
+.workout-img:hover {
+  transform: scale(1.05);
+}
+
+/*------------------------------------------end css for viewing a workout*/
+
+/*-------------------------------------css for accounts & follow page*/
 .account-img {
   height: 125px;
   width: 125px;
@@ -199,142 +224,110 @@ a.workout-title:hover {
   color: #767676;
 }
 
-.unfollow{
+.unfollow {
   font-size: 0.8em;
 }
 
-.follow-info{
-  margin-top:20px;
+.follow-info {
+  margin-left: 35%;
 }
 
-
-.navbar-dark .navbar-brand {
-    color: #fff;
-    font-family: 'Merienda', cursive;
-}
-
-
-
-
-.title-page {
-  margin: 0 auto;
-}
-
-.center-align {
-  text-align: center;
-}
-
-.inline{
-  display: inline;
-}
-
-.btn {
-    border: 1px solid black;
-    background-color: inherit;
-    color: black;
-    padding: 6px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.info {
-    border-color: #ca2a2a;
-    color: #ca2a2a;
-}
-
-.info:hover {
-    background: #ca2a2a;
-    color: white;
-}
-
-.update {
-    border-color: #5299f1;
-    color: #5299f1;
-}
-
-.update:hover {
-    background: #5299f1;
-    color: white;
-}
-
-.complete {
-    border-color: #10af2b;
-    color: #10af2b;
-}
-
-.complete:hover {
-    background: #10af2b;
-    color: white;
-}
-
-.btn-small {
-    background-color: inherit;
-    color: black;
-    padding: 8px 16px;
-    font-size: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.light {
-    border: 1px solid rgba(255,255,255,0.8);
-    background: rgba(255,255,255,0.8);
-}
-
-.light:hover {
-    background: rgba(255,255,255,0.7);
-    text-decoration: none;
-}
-
-.outline-light {
-    border: 1px solid rgba(255,255,255,0.8);
-    color: rgba(255,255,255,0.8);
-}
-
-.outline-light:hover {
-    background: rgba(255,255,255,0.8);
-    text-decoration: none;
-}
-
-.no-underline:hover{
-  text-decoration: none;
-}
-
-.gallery-margin{
-  margin: 5px;
-}
-
-.comment-area{
-  display: block;
-  overflow: hidden;
-  padding-top: 10px;
-}
-
-.photo-container{
-  width: 100%;
-}
-
-.workout-img{
-  width: 100%;
-  height: 100px;
+.following-img {
+  width: 70px;
+  height: 70px;
+  margin-top: 10px;
   margin-bottom: 10px;
-  transition: all .2s ease-in-out;
 }
 
-.workout-img:hover {
-  transform: scale(1.05);
+.rounded-edges {
+  border-radius: 5px;
 }
-
-.motivation{
-  font-family: 'Roboto', sans-serif;
-  color: #ca2a2a;
-}
-
-.mb-30{
+.mb-30 {
   margin-bottom: 30px;
 }
 
-.rounded-edges{
+/*-------------------------------------end css for accounts & follow page*/
+
+
+
+
+/*--------------------------------------css for buttons*/
+
+.btn {
+  border: 1px solid black;
+  background-color: inherit;
+  color: black;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
   border-radius: 5px;
 }
+
+.info {
+  border-color: #ca2a2a;
+  color: #ca2a2a;
+}
+
+.info:hover {
+  background: #ca2a2a;
+  color: white;
+}
+
+.update {
+  border-color: #5299f1;
+  color: #5299f1;
+}
+
+.update:hover {
+  background: #5299f1;
+  color: white;
+}
+
+.complete {
+  border-color: #10af2b;
+  color: #10af2b;
+}
+
+.complete:hover {
+  background: #10af2b;
+  color: white;
+}
+
+.btn-small {
+  background-color: inherit;
+  color: black;
+  padding: 8px 16px;
+  font-size: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.light {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.light:focus {
+  outline: none;
+}
+
+.light:hover {
+  background: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+
+.outline-light {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.outline-light:hover {
+  background: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+
+.no-underline:hover {
+  text-decoration: none;
+}
+
+/*-------------------------------------- ens css for buttons*/
