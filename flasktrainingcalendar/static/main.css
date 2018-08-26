@@ -192,11 +192,19 @@ a.workout-title:hover {
 }
 
 .account-heading {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 
 .account-heading:hover {
   color: #767676;
+}
+
+.unfollow{
+  font-size: 0.8em;
+}
+
+.follow-info{
+  margin-top:20px;
 }
 
 
