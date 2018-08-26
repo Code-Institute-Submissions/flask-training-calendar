@@ -1,7 +1,6 @@
 body {
   background-image: url("images/endurance-exercise-female-40751.jpg");
   background-size: cover;
-  height: 100vh;
   color: #333333;
   margin-top: 5rem;
   background-attachment: fixed;
@@ -13,6 +12,11 @@ h1, h2, h3, h4, h5, h6 {
 
 h2{
   font-size: 1.8em;
+}
+
+.brand-img{
+  width: 3.5%;
+  margin-right: 1%;
 }
 
 .nav-col {
@@ -41,17 +45,31 @@ h2{
 
 .calendar-cell {
   height: 160px;
-  background: rgba(255,255,255,0.8);
+  background: #fff8f2;
   padding: 10px 20px;
   border: 1px solid #dddddd;
-  border-radius: 10px;
   margin-bottom: 20px;
   transition: all .2s ease-in-out;
 }
 
+.calendar-cell:hover {
+  transform: scale(1.05);
+  background: #fff5eb;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
 .calendar-date{
-  color: #ca2a2a;
+  color: #9e4b81;
   text-align: center;
+  transition: all .2s ease-in-out;
+}
+
+.calendar-cell:hover .calendar-date{
+  color: red;
 }
 
 .run-description{
@@ -67,7 +85,7 @@ h2{
 }
 
 .single-info{
-  background: rgb(255,255,255,0.8);
+  background: #fff8f2;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 10px;
@@ -94,6 +112,25 @@ h2{
   display: inline;
 }
 
+.comment-options{
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-options {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.comment-options:hover .dropdown-options {
+    display: block;
+}
+
 .page-center{
   margin-top: 30%;
 }
@@ -111,9 +148,7 @@ a.workout-title:hover {
   text-decoration: none;
 }
 
-article.calendar-cell:hover {
-  transform: scale(1.05);
-}
+
 
 .workout-content {
   white-space: pre-line;

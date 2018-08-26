@@ -45,17 +45,22 @@
                             <div class="col-1">
                                 <img class="rounded-circle comment-img" src="{{url_for('static', filename='profile_pics/' + comment.author.image_file)}}">
                             </div>
-                            <div class="col-11 pl-5">
+                            <div class="col-9 pl-5">
                                 <div class="comment-area">
                                     <p class="comment"><strong>{{comment.author.username}}:</strong> {{comment.text}}</p>
                                 </div>
-                                {% if current_user.id == comment.author.id%}
-                                <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
-                                <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
-                                    <input type="submit" class="btn-small" value="Delete"/>
-                                </form>
-                            {% endif %}
                             </div>
+                            {% if current_user.id == comment.author.id%}
+                                <div class="col-1 pl-5 comment-options">
+                                    <span>...</span>
+                                    <div class="dropdown-options">
+                                        <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
+                                        <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
+                                            <input type="submit" class="btn-small" value="Delete"/>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
