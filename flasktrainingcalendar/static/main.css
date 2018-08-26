@@ -286,11 +286,19 @@ a.workout-title:hover {
   padding-top: 10px;
 }
 
+.photo-container{
+  width: 100%;
+}
+
 .workout-img{
-  margin-bottom: 5px;
-  height: 150px !important;
-  background-color: inherit;
-  border: none;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  transition: all .2s ease-in-out;
+}
+
+.workout-img:hover {
+  transform: scale(1.05);
 }
 
 .motivation{

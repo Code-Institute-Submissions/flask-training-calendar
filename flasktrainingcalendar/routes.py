@@ -237,13 +237,13 @@ def delete_workout(workout_id):
 @login_required
 def delete_comment(comment_id, workout_id):
     comment = Comment.query.get_or_404(comment_id)
-    if comment.author.id != current_user.id:
+    if comment.author.id == current_user.id or comment.workout.user_id == current_user.id:
+        db.session.delete(comment)
+        db.session.commit()
+        flash("Your comment has been deleted", "success")
+        return redirect(url_for('workout', workout_id=workout_id))
+    else:
         abort(403)
-    db.session.delete(comment)
-    db.session.commit()
-    flash("Your comment has been deleted", "success")
-    return redirect(url_for('workout', workout_id=workout_id))
-
 
 def send_reset_email(user):
     token = user.get_reset_token()

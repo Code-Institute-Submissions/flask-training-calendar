@@ -74,6 +74,7 @@ class Workout(db.Model):
     description = db.Column(db.Text)
     completed = db.Column(db.Boolean, default=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    comments = db.relationship('Comment', backref='workout', lazy=True)
     
     def __repr__(self):
         return 'Workout id: {0}, description: {1}{2}{3}, completed: {4}'.format(self.id, self.workout_distance, self.distance_unit, self.workout_type, self.completed)

@@ -1,7 +1,7 @@
 {% extends "layout.html" %} 
 {% block content %}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-12 col-md-8">
             <article class="media single-info">
                 <div class="media-body">
                     <div>
@@ -51,11 +51,13 @@
                                             <p class="comment"><strong>{{comment.author.username}}:</strong> {{comment.text}}</p>
                                         </div>
                                     </div>
-                                    {% if current_user.id == comment.author.id%}
+                                    {% if current_user.id == comment.author.id or current_user.id == workout.author.id%}
                                         <div class="col-1 pl-5 comment-options">
                                             <span>...</span>
                                             <div class="dropdown-options">
-                                                <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
+                                                {% if current_user.id == comment.author.id %}
+                                                    <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
+                                                {% endif %}
                                                 <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
                                                     <input type="submit" class="btn-small" value="Delete"/>
                                                 </form>
@@ -116,13 +118,15 @@
             </article>
         </div>  
         
-        <div class="col-md-4">
+        <div class="col-12 col-md-4">
             <div class="row">
                 {% for photo in photos %}
-                    <div class="col-lg-3 col-sm-6" style="text-align:center">
-                        <a href="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" data-lightbox="img-gallery"> 
-                            <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" width="200"  class="img-thumbnail workout-img"></img>
-                        </a>
+                    <div class="col-md-4 col-6">
+                        <div class="photo-container">
+                            <a href="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" data-lightbox="img-gallery"> 
+                                <img src="{{url_for('static', filename='workout_pics/' + photo.image_file)}}" class="workout-img"></img>
+                            </a>
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                 {% endfor %}
