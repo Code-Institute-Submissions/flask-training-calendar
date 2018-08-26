@@ -125,6 +125,13 @@ h2{
 .comment-options{
   position: relative;
   display: inline-block;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.comment-options:focus {
+  outline:0;
 }
 
 .dropdown-options {
