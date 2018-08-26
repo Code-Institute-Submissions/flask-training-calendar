@@ -106,6 +106,16 @@ h2{
 .single-comment{
   border-bottom: 1px solid #dddddd;
   overflow: hidden;
+  background: none !important;
+  border: none !important;
+}
+
+.dropdown-toggle::after{
+  content: none;
+}
+
+.dropdown-menu{
+  min-width: 1px;
 }
 
 .comment{

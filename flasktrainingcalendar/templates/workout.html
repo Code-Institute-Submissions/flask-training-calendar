@@ -53,14 +53,18 @@
                                     </div>
                                     {% if current_user.id == comment.author.id or current_user.id == workout.author.id%}
                                         <div class="col-1 pl-5 comment-options">
-                                            <span>...</span>
-                                            <div class="dropdown-options">
-                                                {% if current_user.id == comment.author.id %}
-                                                    <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
-                                                {% endif %}
-                                                <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
-                                                    <input type="submit" class="btn-small" value="Delete"/>
-                                                </form>
+                                            <div class="dropdown">
+                                                <span class="comment-options dropdown-toggle" data-toggle="dropdown">
+                                                     ...
+                                                </span>
+                                                <div class="dropdown-menu">
+                                                    {% if current_user.id == comment.author.id %}
+                                                        <a class="btn-small light mt-1 mb-1" href="{{url_for('workout', workout_id=workout.id, comment_id=comment.id)}}">Edit</a>
+                                                    {% endif %}
+                                                    <form action="{{ url_for('delete_comment', comment_id=comment.id, workout_id=workout.id )}}" method="POST" class="inline">
+                                                        <input type="submit" class="btn-small light" value="Delete"/>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     {% endif %}

@@ -240,7 +240,10 @@ def delete_comment(comment_id, workout_id):
     if comment.author.id == current_user.id or comment.workout.user_id == current_user.id:
         db.session.delete(comment)
         db.session.commit()
-        flash("Your comment has been deleted", "success")
+        if comment.author.id == current_user.id:
+            flash("Your comment has been deleted", "success")
+        else: 
+            flash("Comment has been deleted", "success")
         return redirect(url_for('workout', workout_id=workout_id))
     else:
         abort(403)
