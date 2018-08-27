@@ -152,8 +152,11 @@ app.config['FLASKS3_ACTIVE'] = False
 ```
 5. You will need to set a secret key in your environment variables, you can get a randomly generated one from [https://randomkeygen.com/](https://randomkeygen.com/)
 6. To upload user account image photos and workout photos to the local static folder, in routes.py you will have to change the following two functions to look as they appear below:
-    *function for saving profile picture
+    
 ```
+*function for saving profile picture
+
+
 def save_profile_picture(form_picture):          
     random_hex = ''.join([random.choice(string.digits) for n in range(8)])    
     _, f_ext = os.path.splitext(form_picture.filename)  
@@ -165,8 +168,11 @@ def save_profile_picture(form_picture):
     i.save(picture_path)
     return picture_fn
 ```
-    *function for saving workout picture
+    
 ```
+*function for saving workout picture
+
+
 def save_workout_picture(form_picture):          
     random_hex = ''.join([random.choice(string.digits) for n in range(8)])    
     _, f_ext = os.path.splitext(form_picture.filename)  
@@ -176,13 +182,15 @@ def save_workout_picture(form_picture):
     i.save(picture_path)
     return picture_fn
 ```
-7. You will need to install pillow for saving images locally, in your terminal enter `pip3 install pillow`
+7. You will need to install pillow for saving images locally, in your terminal enter 
+```pip3 install pillow```
 8. In the import section at the top of routes.py, import Image from pillow like so:
 ```
 from PIL import Image
 ```
 9. You will need to create a folder called workout_pics in your static folder, user uploaded workout pictures will be saved here.
-9. To run the app from your terminal type `python3 run.py`
+9. To run the app from your terminal type: 
+```python3 run.py```
 10. If you wish to set up the password reset function, currently the settings are for a google account, in your environment variable you can enter information for the mail address and password. Please note that you will have to change the security settings on this email account to allow less secure access.
 
 ## Credits
