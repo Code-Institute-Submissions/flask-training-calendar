@@ -31,12 +31,12 @@ Beyond that all information for the user is displayed intuitively to make it eas
 
 
 On the home page information is displayed relating to the planned workouts for the current day.  
-If there are no workouts planned for the current day the homepage will instead display motivational messages.  
+If there are no workouts planned for the current day the homepage will instead display random motivational messages.  
 If an unregistered user visits the site the home screen will display options for logging in or registering.  
 
 
 A user is required to have an account to access all features of the site.  
-For the purposes of viewing/testing the site I have created the following dummy accounts that make use of the sites features, please use them or create your own account to access the site:
+For the purposes of viewing/testing the site I have created the following dummy accounts that make use of the site's features, please use them or create your own account to access the site, where you can also follow these accounts:
 
 * Account 1
     * **username:** Daniel Tibor
@@ -150,7 +150,7 @@ pip3 install -r requirements.txt
 from flasktrainingcalendar import db
 db.create_all()
 ```
-4. To get your static assets from local folders, in __init__.py change the setting on FLASK_S3 active to false like so:
+4. To get your static assets from local folders, in \_\_init\_\_.py change the setting on FLASK_S3 active to false like so:
 ```
 app.config['FLASKS3_ACTIVE'] = False
 ```
@@ -205,6 +205,6 @@ from PIL import Image
 * Fonts used were obtained from Google Fonts
 
 ### Acknowledgements
-Understanding of how to structure an app built with the Flask microframework in this fashion and how to use the various flask extensions, as well as minor styling influences were obtained from [Corey Schafer's flask blog tutorials](https://www.youtube.com/watch?v=MwZwr5Tvyxo&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH)
+Understanding of how to structure an app built with the Flask microframework in this fashion and how to use the various flask extensions, as well as minor styling influences were obtained from [Corey Schafer's flask blog tutorials](https://www.youtube.com/watch?v=MwZwr5Tvyxo&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH).  
 Various code snippets were obtained from this tutorial as well.  
-Understanding of how to implement a followers system was obtained from [Miguel Grinberg's flask mega-tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers-contacts-and-friends)
+Understanding of how to implement a followers system was obtained from [Miguel Grinberg's flask mega-tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers-contacts-and-friends).
