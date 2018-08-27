@@ -108,12 +108,13 @@ For the purposes of viewing/testing the site I have created the following dummy 
 * notifications for a user when a follower comments on one of their workouts.
 * Enable users to comment on individual photos.
 
+
 ## Testing
 The site was tested on 21" monitors, 15" and 13" laptop screens and on an iPhone SE and iPhone 8 screen to test responsiveness.  
 It was also tested using chrome, firefox and safari.
  
 
-All testing was performed manually to ensure links/form submissions/model relationships worked correctly and the the site was defensively designed.  
+All testing was performed manually to ensure links/form submissions/model relationships worked correctly and that the site was defensively designed.  
 
 Manual testing was done to ensure:
 * The site works as intended
@@ -127,7 +128,10 @@ Manual testing was done to ensure:
     * Only the user who creates a comment or the user whose workout the comment is attached to can delete it
 
 A bug was found on safari where the input date field on adding/editing a workout does not show a datepicker. It requires the user to input a target date in the correct format.  
-This is a bug I have yet to find a solution for.  
+This is a bug I have yet to find a solution for. 
+
+Originally the form to add a workout only accepted dates from the current date on so a user could not plan a workout with a date in the past. However this caused issue if a user wanted to edit a completed run with a date in the past.  
+I felt it was better to remove the neccessity to enter a date in the future as users also may want to enter details of a workout they've already completed.
 
 ## Deployment
 The site is hosted on heroku.  
