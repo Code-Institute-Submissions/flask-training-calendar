@@ -2,7 +2,7 @@
 
 Data Centric Development Project - Code Institute
 
-Running Calendar is a web app with a social media aspect where users can perform the following functions:
+Running Calendar is a web app for planning runs with a social media aspect where users can perform the following functions:
 * Plan upcoming runs
 * Mark runs as complete
 * Edit and delete runs
@@ -20,11 +20,11 @@ It was built in Python3 using the Flask microframework.
 
 ## UX
 
-The inspiration for this project came when I was writing out a training schedule for an upcoming race and realised that, while there are many run tracking apps, very few deal with planning upcoming runs.  
+The inspiration for this project came when I was writing out a training schedule for an upcoming race and realised that, while there are many run tracking apps, very few offer functionality to plan upcoming runs.  
 I felt the opportuntiy was there for users to plan out training schedules and then be able to easily access the site to see what their planned run for the day consisted of.  
 
 The visual theme for the site is kept relatively simple and consistent throughout the site.  
-A background image of a silhouetted runner against the sun is used to evoke an inspirational sense of running.  
+A background image of a silhouetted runner against the sun is used to evoke an inspirational view of running.  
 I felt it is a powerful image and chose to give it a sharp focus throughout the site, dedicating a third of the screensize to it.  
 On smaller devices the image of the runner is not visible. However I chose to keep the background image, as the viewable portion (an orange sky at sunset) makes the background visually interesting while still unobtrusive.  
 Beyond that all information for the user is displayed intuitively to make it easy for the user to comprehend and interact with. 
@@ -131,6 +131,7 @@ Manual testing was done to ensure:
 * Defensive design:
     * Unregistered users do not have access to any area of the site other than login and register routes
     * Registered users cannot access information relating to a user whom they are not following.
+    * Only a user who creates a run can edit/delete the run or mark it as complete.
     * Only a user who creates a comment can edit it
     * Only the user who creates a comment or the user whose workout the comment is attached to can delete it
 
