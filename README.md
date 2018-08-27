@@ -40,20 +40,20 @@ For the purposes of viewing/testing the site I have created the following dummy 
 
 * Account 1
     * **username:** Daniel Tibor
-    * **email** dan@fake.com
-    * **password** danpassword
+    * **email:** dan@fake.com
+    * **password:** danpassword
 * Account 2 
     * **username:** Hilde Farley
-    * **email** hilde@fake.com
-    * **password** hildepassword
+    * **email:** hilde@fake.com
+    * **password:** hildepassword
 * Account 3
     * **username:** Shelby Morris
-    * **email** shelby@fake.com
-    * **password** shelbypassword
+    * **email:** shelby@fake.com
+    * **password:** shelbypassword
 * Account 4
     * **username:** Anna Garcia
-    * **email** anna@fake.com
-    * **password** annapassword
+    * **email:** anna@fake.com
+    * **password:** annapassword
 
 
 ## Technologies Used
