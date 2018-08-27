@@ -38,21 +38,22 @@ If an unregistered user visits the site the home screen will display options for
 A user is required to have an account to access all features of the site.  
 For the purposes of viewing/testing the site I have created the following dummy accounts that make use of the sites features, please use them or create your own account to access the site:
 
-* **username:** Daniel Tibor
-* **email** dan@fake.com
-* **password** danpassword
- 
-* **username:** Hilde Farley
-* **email** hilde@fake.com
-* **password** hildepassword
-
-* **username:** Shelby Morris
-* **email** shelby@fake.com
-* **password** shelbypassword
-
-* **username:** Anna Garcia
-* **email** anna@fake.com
-* **password** annapassword
+* Account 1
+    * **username:** Daniel Tibor
+    * **email** dan@fake.com
+    * **password** danpassword
+* Account 2 
+    * **username:** Hilde Farley
+    * **email** hilde@fake.com
+    * **password** hildepassword
+* Account 3
+    * **username:** Shelby Morris
+    * **email** shelby@fake.com
+    * **password** shelbypassword
+* Account 4
+    * **username:** Anna Garcia
+    * **email** anna@fake.com
+    * **password** annapassword
 
 
 ## Technologies Used
@@ -137,22 +138,22 @@ The code is set up to host static assets on aws.
 To run this site locally including hosting static assets locally please use the following steps:
 1. Clone the [github repository](https://github.com/mparkcode/flask-training-calendar)
 2. In your terminal enter:
-'''
+```
 pip3 install -r requirements.txt
-'''
+```
 3. You will have to create the database tables, in your terminal enter the python3 interpreter and enter:
-'''
+```
 from flasktrainingcalendar import db
 db.create_all()
-'''
+```
 4. To get your static assets from local folders, in __init__.py change the setting on FLASK_S3 active to false like so:
-'''
+```
 app.config['FLASKS3_ACTIVE'] = False
-'''
+```
 5. You will need to set a secret key in your environment variables, you can get a randomly generated one from [https://randomkeygen.com/](https://randomkeygen.com/)
 6. To upload user account image photos and workout photos to the local static folder, in routes.py you will have to change the following two functions to look as they appear below:
     *function for saving profile picture
-'''
+```
 def save_profile_picture(form_picture):          
     random_hex = ''.join([random.choice(string.digits) for n in range(8)])    
     _, f_ext = os.path.splitext(form_picture.filename)  
@@ -163,9 +164,9 @@ def save_profile_picture(form_picture):
     i.thumbnail(output_size)
     i.save(picture_path)
     return picture_fn
-'''
+```
     *function for saving workout picture
-'''
+```
 def save_workout_picture(form_picture):          
     random_hex = ''.join([random.choice(string.digits) for n in range(8)])    
     _, f_ext = os.path.splitext(form_picture.filename)  
@@ -174,14 +175,15 @@ def save_workout_picture(form_picture):
     i = Image.open(form_picture)
     i.save(picture_path)
     return picture_fn
-'''
-7. You will need to install pillow for saving images locally, in your terminal enter 'pip3 install pillow'
+```
+7. You will need to install pillow for saving images locally, in your terminal enter `pip3 install pillow`
 8. In the import section at the top of routes.py, import Image from pillow like so:
-'''
+```
 from PIL import Image
-'''
-9. To run the app from your terminal type 'python3 run.py'
-10. If you wish to set up the password reset function, currently the settings are for a google account, in your environment variable you can enter information for the mail address and password. Please note that you will have to change the security settings on this email to address to allow less secure access.
+```
+9. You will need to create a folder called workout_pics in your static folder, user uploaded workout pictures will be saved here.
+9. To run the app from your terminal type `python3 run.py`
+10. If you wish to set up the password reset function, currently the settings are for a google account, in your environment variable you can enter information for the mail address and password. Please note that you will have to change the security settings on this email account to allow less secure access.
 
 ## Credits
 
