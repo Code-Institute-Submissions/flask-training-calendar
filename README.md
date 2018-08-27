@@ -78,6 +78,11 @@ For the purposes of viewing/testing the site I have created the following dummy 
 * lightbox
     * A javascript library for displaying images
 
+
+### Wireframing
+
+Wireframes were made using the pencil application and can be found in the wireframes folder
+
 ## Features
 
 ### Existing Features
@@ -107,6 +112,8 @@ For the purposes of viewing/testing the site I have created the following dummy 
 * Set up a newsfeed where users can view activities of other users as they create them.
 * notifications for a user when a follower comments on one of their workouts.
 * Enable users to comment on individual photos.
+* A calendar view where users can view there upcoming workouts on a calendar and change the dates of the workouts by clicking and dragging.
+* I would like to further refine the style, for example on the image gallery, I would like to make the simple thumbnail grid more visually appealing.
 
 
 ## Testing
@@ -145,7 +152,7 @@ To run this site locally including hosting static assets locally please use the 
 ```
 pip3 install -r requirements.txt
 ```
-3. You will have to create the database tables, in your terminal enter the python3 interpreter and enter:
+3. You will have to create the database tables, in the python3 interpreter enter:
 ```
 from flasktrainingcalendar import db
 db.create_all()
