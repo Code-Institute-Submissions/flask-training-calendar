@@ -222,14 +222,14 @@ def delete_workout(workout_id):
     comments = Comment.query.filter_by(workout_id=workout.id).all()
     if workout.user_id != current_user.id:
         abort(403)
-    db.session.delete(workout)
-    db.session.commit()
     for photo in photos:
         db.session.delete(photo)
         db.session.commit()
     for comment in comments:
         db.session.delete(comment)
-        db.session.commit()    
+        db.session.commit() 
+    db.session.delete(workout)
+    db.session.commit()
     flash("Your workout has been deleted", "success")
     return redirect(url_for('get_workouts'))
     
