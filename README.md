@@ -23,20 +23,20 @@ It was built in Python3 using the Flask microframework.
 The inspiration for this project came when I was writing out a training schedule for an upcoming race and realised that, while there are many run tracking apps, very few offer functionality to plan upcoming runs.  
 I felt the opportuntiy was there for users to plan out training schedules and then be able to easily access the site to see what their planned run for the day consisted of.  
 
-The visual theme for the site is kept relatively simple and consistent throughout the site.  
+The visual theme for the site is kept relatively simple and consistent throughout.  
 A background image of a silhouetted runner against the sun is used to evoke an inspirational view of running.  
 I felt it is a powerful image and chose to give it a sharp focus throughout the site, dedicating a third of the screensize to it.  
 On smaller devices the image of the runner is not visible. However I chose to keep the background image, as the viewable portion (an orange sky at sunset) makes the background visually interesting while still unobtrusive.  
 Beyond that all information for the user is displayed intuitively to make it easy for the user to comprehend and interact with. 
 
+### No template was used
 
 On the home page information is displayed relating to the planned workouts for the current day.  
 If there are no workouts planned for the current day the homepage will instead display random motivational messages.  
 If an unregistered user visits the site the home screen will display options for logging in or registering.  
 
-
 A user is required to have an account to access all features of the site.  
-For the purposes of viewing/testing the site I have created the following dummy accounts that make use of the site's features, please use them or create your own account to access the site, where you can also follow these accounts:
+For the purposes of viewing/testing the site I have created the following dummy accounts, which make use of the site's features. Please use them or create your own account to access the site, where you can also follow these accounts:
 
 * Account 1
     * **username:** Daniel Tibor
@@ -87,7 +87,7 @@ Wireframes were made using the pencil application and can be found in the wirefr
 
 ### Existing Features
 * Users can easily register and log in.
-* A user can request a password reset email if they forget their password
+* A user can request a password reset email if they forget their password.
 * A user can plan an upcoming run.
 * In planning an upcoming run various run specific options are availble to be chosen such as run type, unit of measurement etc.
 * Runs can be edited, deleted, or marked as completed.
@@ -102,18 +102,18 @@ Wireframes were made using the pencil application and can be found in the wirefr
 * A user can unfollow a user they're following.
 * A user can update their account imformation through the accounts page - name, email and account image.
 * Users can log out.
-* A user cannot view a workout of a user they are not following
+* A user cannot view a workout of a user they are not following.
 
 ### Features left to implement
-* Give users the option to delete workout photos
-* Enable easier navigations between next/previous workouts on the workout page
+* Give users the option to delete workout photos - This will be easy to achieve.
+* Enable easier navigations between next/previous workouts on the workout page.
 * Increase the intuitiveness of site navigation. Presently there is an over-reliance on using the navbar links and browser back button.
-* Set up a request system where a user can request to follow another user, presently a user can follow any user on the site
+* Set up a request system where a user can request to follow another user, presently a user can follow any user on the site.
 * Set up a newsfeed where users can view activities of other users as they create them.
-* notifications for a user when a follower comments on one of their workouts.
+* Notifications for a user when a follower comments on one of their workouts.
 * Enable users to comment on individual photos.
 * A calendar view where users can view there upcoming workouts on a calendar and change the dates of the workouts by clicking and dragging.
-* I would like to further refine the style, for example on the image gallery, I would like to make the simple thumbnail grid more visually appealing.
+* I would like to further refine the style, for example on the image gallery for a workout, I would like to make the simple thumbnail grid more visually appealing.
 
 
 ## Testing
@@ -132,11 +132,11 @@ Manual testing was done to ensure:
     * Unregistered users do not have access to any area of the site other than login and register routes
     * Registered users cannot access information relating to a user whom they are not following.
     * Only a user who creates a run can edit/delete the run or mark it as complete.
-    * Only a user who creates a comment can edit it
-    * Only the user who creates a comment or the user whose workout the comment is attached to can delete it
+    * Only a user who creates a comment can edit it.
+    * Only the user who creates a comment or the user whose workout the comment is attached to can delete it.
 
-A bug was found on safari where the input date field on adding/editing a workout does not show a datepicker. It requires the user to input a target date in the correct format.  
-This is a bug I have yet to find a solution for. 
+When testing on safari I realised the input date field on adding/editing a workout does not show a datepicker. It requires the user to input a target date in the correct format.  
+I have yet to find a solution for this. 
 
 Originally the form to add a workout only accepted dates from the current date on so a user could not plan a workout with a date in the past. However this caused issue if a user wanted to edit a completed run with a date in the past.  
 I felt it was better to remove the neccessity to enter a date in the future as users also may want to enter details of a workout they've already completed.
@@ -208,9 +208,9 @@ from PIL import Image
 ## Credits
 
 ### Media
-* The background image was obtained from Pexel
-* user uploaded images on dummy accounts were obtained from google images
-* Fonts used were obtained from Google Fonts
+* The background image was obtained from Pexel.
+* User uploaded images on dummy accounts were obtained from google images.
+* Fonts used were obtained from Google Fonts.
 
 ### Acknowledgements
 Understanding of how to structure an app built with the Flask microframework in this fashion and how to use the various flask extensions, as well as minor styling influences were obtained from [Corey Schafer's flask blog tutorials](https://www.youtube.com/watch?v=MwZwr5Tvyxo&list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH).  
