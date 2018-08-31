@@ -117,8 +117,8 @@ Wireframes were made using the pencil application and can be found in the wirefr
 
 ## Issues
 
-More time and work is required to make dite navigation a smoother experience. For example currently if a user deletes any run, upcoming or completed, they will be redirected to the view for their upcoming runs.  
-It also requires too many steps to get to certain views. For example if a follower comments on a users run, they would have to click the back button twice to return to the view containg the user's upcoming/completed runs.  
+More time and work is required to make site navigation a smoother experience. For example currently if a user deletes any run, upcoming or completed, they will be redirected to the view for their upcoming runs.  
+It also requires too many steps to get to certain views. For example if a follower comments on a user's run, they would have to click the back button twice to return to the view containg the user's upcoming/completed runs.  
 I would also like to revisit the styling on the site & improve the css code.  
 Comments are also required on code blocks where it is not obvious what the code is doing.  
 
