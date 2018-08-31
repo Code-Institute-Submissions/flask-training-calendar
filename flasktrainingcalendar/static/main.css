@@ -233,6 +233,11 @@ a.workout-title:hover {
   margin-bottom: 30px;
 }
 
+.following-img-container{
+  width: 100%;
+  text-align: center;
+}
+
 /*-------------------------------------end css for accounts & follow page*/
 
 
