@@ -115,6 +115,13 @@ Wireframes were made using the pencil application and can be found in the wirefr
 * A calendar view where users can view there upcoming workouts on a calendar and change the dates of the workouts by clicking and dragging.
 * I would like to further refine the style, for example on the image gallery for a workout, I would like to make the simple thumbnail grid more visually appealing.
 
+## Issues
+
+More time and work is required to make dite navigation a smoother experience. For example currently if a user deletes any run, upcoming or completed, they will be redirected to the view for their upcoming runs.  
+It also requires too many steps to get to certain views. For example if a follower comments on a users run, they would have to click the back button twice to return to the view containg the user's upcoming/completed runs.  
+I would also like to revisit the styling on the site & improve the css code.  
+Comments are also required on code blocks where it is not obvious what the code is doing.  
+
 
 ## Testing
 The site was tested on 21" monitors, 15" and 13" laptop screens and on an iPhone SE and iPhone 8 screen to test responsiveness.  
